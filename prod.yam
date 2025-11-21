@@ -1,0 +1,1284 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-113
+    creationTimestamp: "2025-11-20T02:53:41Z"
+    generateName: generate-report-55774dc6f4-
+    labels:
+      app: generate-report
+      pod-template-hash: 55774dc6f4
+    name: generate-report-55774dc6f4-52fds
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: generate-report-55774dc6f4
+      uid: af008efa-2746-4676-a223-f76d1851346c
+    resourceVersion: "485388768"
+    uid: be159de0-a30c-4a5c-a7ef-e99832ce4576
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: generate-report-env
+      image: idverifications.azurecr.io/api-reports:latest
+      imagePullPolicy: Always
+      name: generate-report-api
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-nhz6z
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000t
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-nhz6z
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:05Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:45Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:05Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:05Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:45Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://bb9ece0ad82acec2678e7097aecf3b6637495a90524d281c52d8743b52990621
+      image: idverifications.azurecr.io/api-reports:latest
+      imageID: idverifications.azurecr.io/api-reports@sha256:6c4180020219d5671a882eae2f3cd3d99ec16bb341e20b34e57a1ef3c14b78ac
+      lastState: {}
+      name: generate-report-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:54:05Z"
+    hostIP: 10.224.0.14
+    hostIPs:
+    - ip: 10.224.0.14
+    phase: Running
+    podIP: 10.244.5.99
+    podIPs:
+    - ip: 10.244.5.99
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:45Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-113
+    creationTimestamp: "2025-11-20T02:53:40Z"
+    generateName: generate-report-55774dc6f4-
+    labels:
+      app: generate-report
+      pod-template-hash: 55774dc6f4
+    name: generate-report-55774dc6f4-v4k86
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: generate-report-55774dc6f4
+      uid: af008efa-2746-4676-a223-f76d1851346c
+    resourceVersion: "485388958"
+    uid: 5e419247-f3bf-46af-8fba-fa8d6f7a718b
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: generate-report-env
+      image: idverifications.azurecr.io/api-reports:latest
+      imagePullPolicy: Always
+      name: generate-report-api
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-ljnt5
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000l
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-ljnt5
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:19Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:45Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:19Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:19Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:45Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://565d9ea3004dba00d99a04cce75a150344c2257b2345fd82e6ca778bce0278bd
+      image: idverifications.azurecr.io/api-reports:latest
+      imageID: idverifications.azurecr.io/api-reports@sha256:6c4180020219d5671a882eae2f3cd3d99ec16bb341e20b34e57a1ef3c14b78ac
+      lastState: {}
+      name: generate-report-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:54:18Z"
+    hostIP: 10.224.0.13
+    hostIPs:
+    - ip: 10.224.0.13
+    phase: Running
+    podIP: 10.244.3.94
+    podIPs:
+    - ip: 10.244.3.94
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:45Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"acme-challenge-service","namespace":"prod"},"spec":{"ports":[{"port":80,"protocol":"TCP","targetPort":80}],"selector":{"app":"acme-challenge"}}}
+    creationTimestamp: "2024-10-24T22:56:17Z"
+    name: acme-challenge-service
+    namespace: prod
+    resourceVersion: "282852769"
+    uid: a6b9f399-ecf4-4009-a337-594d884a8e11
+  spec:
+    clusterIP: 10.0.247.20
+    clusterIPs:
+    - 10.0.247.20
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: acme-challenge
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-04-25T17:03:58Z"
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: generate-report-api
+    name: generate-report-api
+    namespace: prod
+    resourceVersion: "366966921"
+    uid: 3dfeced5-77d4-43c3-93c9-d784313e3c37
+  spec:
+    clusterIP: 10.0.71.24
+    clusterIPs:
+    - 10.0.71.24
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: generate-report
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "97"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2024-10-27T19:21:53Z"
+    generation: 98
+    labels:
+      app: generate-report
+      app.kubernetes.io/managed-by: Helm
+    name: generate-report
+    namespace: prod
+    resourceVersion: "485388960"
+    uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: generate-report
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-113
+        creationTimestamp: null
+        labels:
+          app: generate-report
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2024-10-27T19:21:53Z"
+      lastUpdateTime: "2025-11-12T23:15:22Z"
+      message: ReplicaSet "generate-report-55774dc6f4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-11-20T02:54:19Z"
+      lastUpdateTime: "2025-11-20T02:54:19Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 98
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "97"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-11-12T23:15:04Z"
+    generation: 2
+    labels:
+      app: generate-report
+      pod-template-hash: 55774dc6f4
+    name: generate-report-55774dc6f4
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "485388959"
+    uid: af008efa-2746-4676-a223-f76d1851346c
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 55774dc6f4
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-113
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 55774dc6f4
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 2
+    readyReplicas: 2
+    replicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "95"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-11-08T22:24:31Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 59f77f6f9b
+    name: generate-report-59f77f6f9b
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "480844293"
+    uid: 9ee03e05-22c9-4a28-8536-9861382abdeb
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 59f77f6f9b
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-111
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 59f77f6f9b
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "90"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-10-13T17:31:19Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 5bc8cd7f4d
+    name: generate-report-5bc8cd7f4d
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "476656571"
+    uid: 4e2d8407-c9ca-4b54-9103-b02e40e60b53
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 5bc8cd7f4d
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-106
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 5bc8cd7f4d
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "92"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-11-06T22:16:56Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 6585f687fd
+    name: generate-report-6585f687fd
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "477477853"
+    uid: e68f2389-32ce-46a4-b466-d92801d00fbc
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 6585f687fd
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-108
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 6585f687fd
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "91"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-11-06T01:54:27Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 745655b669
+    name: generate-report-745655b669
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "477179603"
+    uid: 0c7d219c-f0c7-4793-8ec0-91fa1084eff6
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 745655b669
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-107
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 745655b669
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "94"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-11-07T17:21:57Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 77766d67f7
+    name: generate-report-77766d67f7
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "478418553"
+    uid: f46ea34c-bb0a-494d-88d0-6b15a46cf760
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 77766d67f7
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-110
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 77766d67f7
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "96"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-11-12T20:19:17Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 785d7879bc
+    name: generate-report-785d7879bc
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "480920656"
+    uid: d4b9fbf7-9ab6-4e58-bfb0-f4b894e34dda
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 785d7879bc
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-112
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 785d7879bc
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "88"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-09-26T00:30:52Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 7b48ff5d86
+    name: generate-report-7b48ff5d86
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "458281629"
+    uid: 98b13648-4f85-4899-af32-9914c1ffb4d2
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 7b48ff5d86
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-104
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 7b48ff5d86
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "93"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-11-07T09:43:34Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 7bbdcf96ff
+    name: generate-report-7bbdcf96ff
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "477673773"
+    uid: 173b5cc0-3bc8-44dd-8c23-4d776c6e4540
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 7bbdcf96ff
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-109
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 7bbdcf96ff
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "87"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-08-29T18:11:46Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 84b964c5df
+    name: generate-report-84b964c5df
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "451686292"
+    uid: f1c89a37-46d7-4d22-b8cc-76d5e7580f9e
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 84b964c5df
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-103
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 84b964c5df
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "89"
+      meta.helm.sh/release-name: generate-reports-api
+      meta.helm.sh/release-namespace: prod
+    creationTimestamp: "2025-10-06T21:20:39Z"
+    generation: 4
+    labels:
+      app: generate-report
+      pod-template-hash: 8ccbd7cbc
+    name: generate-report-8ccbd7cbc
+    namespace: prod
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: generate-report
+      uid: 2b3b6e2d-8bf3-415f-a954-1589b4ff92e9
+    resourceVersion: "462432539"
+    uid: 07c98aa0-6e0e-419b-a16e-9867af400174
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: generate-report
+        pod-template-hash: 8ccbd7cbc
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-105
+        creationTimestamp: null
+        labels:
+          app: generate-report
+          pod-template-hash: 8ccbd7cbc
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: generate-report-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: generate-report-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    annotations:
+      helm.sh/hook: post-install,post-upgrade
+      helm.sh/hook-delete-policy: before-hook-creation
+      helm.sh/hook-weight: "-5"
+    creationTimestamp: "2025-10-07T09:00:02Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: kafka
+      app.kubernetes.io/instance: vm-prod
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: kafka
+      helm.sh/chart: kafka-5.9.24
+    name: vm-prod-configuration
+    namespace: prod
+    resourceVersion: "458583777"
+    uid: a907d7e9-8e0d-47c8-b7f9-60342e63eea8
+  spec:
+    backoffLimit: 6
+    completionMode: NonIndexed
+    completions: 1
+    manualSelector: false
+    parallelism: 1
+    podReplacementPolicy: TerminatingOrFailed
+    selector:
+      matchLabels:
+        batch.kubernetes.io/controller-uid: a907d7e9-8e0d-47c8-b7f9-60342e63eea8
+    suspend: false
+    template:
+      metadata:
+        creationTimestamp: null
+        generateName: vm-prod-post-
+        labels:
+          app.kubernetes.io/component: kafka-post-install
+          app.kubernetes.io/instance: vm-prod
+          app.kubernetes.io/name: kafka
+          batch.kubernetes.io/controller-uid: a907d7e9-8e0d-47c8-b7f9-60342e63eea8
+          batch.kubernetes.io/job-name: vm-prod-configuration
+          controller-uid: a907d7e9-8e0d-47c8-b7f9-60342e63eea8
+          job-name: vm-prod-configuration
+      spec:
+        affinity: {}
+        automountServiceAccountToken: false
+        containers:
+        - command:
+          - /redpanda-operator
+          - sync-cluster-config
+          - --users-directory
+          - /etc/secrets/users
+          - --redpanda-yaml
+          - /tmp/base-config/redpanda.yaml
+          - --bootstrap-yaml
+          - /tmp/config/.bootstrap.yaml
+          image: docker.redpanda.com/redpandadata/redpanda-operator:v2.3.11-24.3.14
+          imagePullPolicy: IfNotPresent
+          name: post-install
+          resources: {}
+          securityContext:
+            runAsGroup: 101
+            runAsUser: 101
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/tls/certs/default
+            name: redpanda-default-cert
+          - mountPath: /etc/tls/certs/external
+            name: redpanda-external-cert
+          - mountPath: /tmp/config
+            name: config
+          - mountPath: /tmp/base-config
+            name: base-config
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - /redpanda-operator
+          - bootstrap
+          - --in-dir
+          - /tmp/base-config
+          - --out-dir
+          - /tmp/config
+          image: docker.redpanda.com/redpandadata/redpanda-operator:v2.3.11-24.3.14
+          imagePullPolicy: IfNotPresent
+          name: bootstrap-yaml-envsubst
+          resources:
+            limits:
+              cpu: 100m
+              memory: 125Mi
+            requests:
+              cpu: 100m
+              memory: 125Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /tmp/config/
+            name: config
+          - mountPath: /tmp/base-config/
+            name: base-config
+        restartPolicy: Never
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 101
+          fsGroupChangePolicy: OnRootMismatch
+        serviceAccount: vm-prod
+        serviceAccountName: vm-prod
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: redpanda-default-cert
+          secret:
+            defaultMode: 288
+            secretName: vm-prod-default-cert
+        - name: redpanda-external-cert
+          secret:
+            defaultMode: 288
+            secretName: vm-prod-external-cert
+        - configMap:
+            defaultMode: 420
+            name: vm-prod
+          name: base-config
+        - emptyDir: {}
+          name: config
+  status:
+    conditions:
+    - lastProbeTime: "2025-10-07T09:10:54Z"
+      lastTransitionTime: "2025-10-07T09:10:54Z"
+      message: Job has reached the specified backoff limit
+      reason: BackoffLimitExceeded
+      status: "True"
+      type: Failed
+    failed: 7
+    ready: 0
+    startTime: "2025-10-07T09:00:02Z"
+    terminating: 0
+    uncountedTerminatedPods: {}
+kind: List
+metadata:
+  resourceVersion: ""

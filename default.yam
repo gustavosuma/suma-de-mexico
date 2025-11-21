@@ -1,0 +1,4932 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-19
+      kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+    creationTimestamp: "2025-11-20T02:53:31Z"
+    generateName: api-blockchain-656cdbd86c-
+    labels:
+      app: api-blockchain
+      pod-template-hash: 656cdbd86c
+    name: api-blockchain-656cdbd86c-v4jp2
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: api-blockchain-656cdbd86c
+      uid: 0356c771-4ed5-43f7-a159-69fca76ad47f
+    resourceVersion: "485388481"
+    uid: 88019235-da37-4877-8633-cced19dd5f74
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: api-blockchain-env
+      image: idverifications.azurecr.io/api-blockchain:latest
+      imagePullPolicy: Always
+      name: api-blockchain
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 200m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-k9tsk
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000t
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-k9tsk
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:48Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:48Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:48Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://30cd2d45e5dd11bbff437d13579c839f18dec05b3e4d5f2230d71cd325c6389a
+      image: idverifications.azurecr.io/api-blockchain:latest
+      imageID: idverifications.azurecr.io/api-blockchain@sha256:cabaeb3fd0e82ac9f848b0b50968d35c07c41ed80264e3b71c11745a600f8604
+      lastState: {}
+      name: api-blockchain
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:53:47Z"
+    hostIP: 10.224.0.14
+    hostIPs:
+    - ip: 10.224.0.14
+    phase: Running
+    podIP: 10.244.5.90
+    podIPs:
+    - ip: 10.244.5.90
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:31Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-214
+    creationTimestamp: "2025-11-20T02:53:31Z"
+    generateName: api-reports-569d9dc89c-
+    labels:
+      app: api-reports
+      pod-template-hash: 569d9dc89c
+    name: api-reports-569d9dc89c-4x4mk
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: api-reports-569d9dc89c
+      uid: 132d3764-b15c-4f3d-bad9-43a668b51365
+    resourceVersion: "485962434"
+    uid: e3ac60c9-9833-4d9d-91ac-ccb81ff6f2a6
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: api-reports-env
+      image: idverifications.azurecr.io/api-reports:latest
+      imagePullPolicy: Always
+      name: api-reports
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-wxqvt
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000u
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-wxqvt
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:38Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-21T01:09:44Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-21T01:09:44Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://847a88cd67e82031923791fbd4b7d372398c51b6b07e3d592ed5e0bbfa67b9ba
+      image: idverifications.azurecr.io/api-reports:latest
+      imageID: idverifications.azurecr.io/api-reports@sha256:6c4180020219d5671a882eae2f3cd3d99ec16bb341e20b34e57a1ef3c14b78ac
+      lastState:
+        terminated:
+          containerID: containerd://3e37fe666e3c2827200f420c68bb730ac2469243338e7c75bda0cf25452cce43
+          exitCode: 139
+          finishedAt: "2025-11-21T01:09:28Z"
+          reason: Error
+          startedAt: "2025-11-21T01:05:51Z"
+      name: api-reports
+      ready: true
+      restartCount: 2
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-21T01:09:44Z"
+    hostIP: 10.224.0.10
+    hostIPs:
+    - ip: 10.224.0.10
+    phase: Running
+    podIP: 10.244.0.61
+    podIPs:
+    - ip: 10.244.0.61
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:31Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-214
+    creationTimestamp: "2025-11-20T02:53:33Z"
+    generateName: api-reports-569d9dc89c-
+    labels:
+      app: api-reports
+      pod-template-hash: 569d9dc89c
+    name: api-reports-569d9dc89c-572kf
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: api-reports-569d9dc89c
+      uid: 132d3764-b15c-4f3d-bad9-43a668b51365
+    resourceVersion: "485977594"
+    uid: a9d08cbc-255b-4152-aef6-ad15c8b6a2c4
+  spec:
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: api-reports-env
+      image: idverifications.azurecr.io/api-reports:latest
+      imagePullPolicy: Always
+      name: api-reports
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-gqpbk
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-syspool-13465686-vmss000000
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-gqpbk
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:02Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:33Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-21T01:44:16Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-21T01:44:16Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:33Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://42aa4f9d678fe61565ffc642f22d94f645401877ca1b6d502003a179695a3d0e
+      image: idverifications.azurecr.io/api-reports:latest
+      imageID: idverifications.azurecr.io/api-reports@sha256:6c4180020219d5671a882eae2f3cd3d99ec16bb341e20b34e57a1ef3c14b78ac
+      lastState:
+        terminated:
+          containerID: containerd://f02e09341f4b81a5d9f7c915374ee061c538ce5f35042470e1cdbb7a633b2074
+          exitCode: 139
+          finishedAt: "2025-11-21T01:44:14Z"
+          reason: Error
+          startedAt: "2025-11-21T01:07:46Z"
+      name: api-reports
+      ready: true
+      restartCount: 2
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-21T01:44:15Z"
+    hostIP: 10.224.0.5
+    hostIPs:
+    - ip: 10.224.0.5
+    phase: Running
+    podIP: 10.244.9.90
+    podIPs:
+    - ip: 10.244.9.90
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:33Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-15
+    creationTimestamp: "2025-11-20T02:53:32Z"
+    generateName: api-sign-64b848c794-
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 64b848c794
+    name: api-sign-64b848c794-988hv
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: api-sign-64b848c794
+      uid: e83bd55d-080e-40ff-ba5e-c5a751776006
+    resourceVersion: "485388591"
+    uid: db866a5d-fac7-4df4-8dcb-6ac8564321f8
+  spec:
+    containers:
+    - env:
+      - name: AZURE_CLIENT_ID
+        value: fea123f5-7c04-43a3-bd04-6b013597640a
+      - name: AZURE_TENANT_ID
+        value: 8bf1585c-7d2f-4b2c-8526-ea7ab90d56b9
+      - name: AZURE_FEDERATED_TOKEN_FILE
+        value: /var/run/secrets/azure/tokens/azure-identity-token
+      - name: AZURE_AUTHORITY_HOST
+        value: https://login.microsoftonline.com/
+      envFrom:
+      - configMapRef:
+          name: api-sign-env
+      image: idverifications.azurecr.io/api-sign:latest
+      imagePullPolicy: Always
+      name: api-sign
+      ports:
+      - containerPort: 3001
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1200m
+          memory: 3Gi
+        requests:
+          cpu: 300m
+          memory: 1Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-xpl4f
+        readOnly: true
+      - mountPath: /var/run/secrets/azure/tokens
+        name: azure-identity-token
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000l
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: veridocid-sa
+    serviceAccountName: veridocid-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-xpl4f
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+    - name: azure-identity-token
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            audience: api://AzureADTokenExchange
+            expirationSeconds: 3600
+            path: azure-identity-token
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:55Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:33Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:55Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:55Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:33Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://49f2170dcdba06935d23e0054d5c265279f6b158dc30bc29bb7ff27000057e9d
+      image: idverifications.azurecr.io/api-sign:latest
+      imageID: idverifications.azurecr.io/api-sign@sha256:f1973948722776b0831cd067d5f0e4e8119bd7379a42de851b6bcd23241cb05f
+      lastState: {}
+      name: api-sign
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:53:55Z"
+    hostIP: 10.224.0.13
+    hostIPs:
+    - ip: 10.224.0.13
+    phase: Running
+    podIP: 10.244.3.86
+    podIPs:
+    - ip: 10.244.3.86
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:33Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-15
+    creationTimestamp: "2025-11-20T02:53:32Z"
+    generateName: api-sign-64b848c794-
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 64b848c794
+    name: api-sign-64b848c794-f2lgt
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: api-sign-64b848c794
+      uid: e83bd55d-080e-40ff-ba5e-c5a751776006
+    resourceVersion: "485388771"
+    uid: d60285ed-2b70-4baa-aef4-d7003f3d61cc
+  spec:
+    containers:
+    - env:
+      - name: AZURE_CLIENT_ID
+        value: fea123f5-7c04-43a3-bd04-6b013597640a
+      - name: AZURE_TENANT_ID
+        value: 8bf1585c-7d2f-4b2c-8526-ea7ab90d56b9
+      - name: AZURE_FEDERATED_TOKEN_FILE
+        value: /var/run/secrets/azure/tokens/azure-identity-token
+      - name: AZURE_AUTHORITY_HOST
+        value: https://login.microsoftonline.com/
+      envFrom:
+      - configMapRef:
+          name: api-sign-env
+      image: idverifications.azurecr.io/api-sign:latest
+      imagePullPolicy: Always
+      name: api-sign
+      ports:
+      - containerPort: 3001
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1200m
+          memory: 3Gi
+        requests:
+          cpu: 300m
+          memory: 1Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-f24rb
+        readOnly: true
+      - mountPath: /var/run/secrets/azure/tokens
+        name: azure-identity-token
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000t
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: veridocid-sa
+    serviceAccountName: veridocid-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-f24rb
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+    - name: azure-identity-token
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            audience: api://AzureADTokenExchange
+            expirationSeconds: 3600
+            path: azure-identity-token
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:05Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:42Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:05Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:05Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:42Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://11eb7b11669e366e75017006b52b5dab9a3e4411ac664b18d01d88b550d83e74
+      image: idverifications.azurecr.io/api-sign:latest
+      imageID: idverifications.azurecr.io/api-sign@sha256:f1973948722776b0831cd067d5f0e4e8119bd7379a42de851b6bcd23241cb05f
+      lastState: {}
+      name: api-sign
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:54:05Z"
+    hostIP: 10.224.0.14
+    hostIPs:
+    - ip: 10.224.0.14
+    phase: Running
+    podIP: 10.244.5.96
+    podIPs:
+    - ip: 10.244.5.96
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:42Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-797
+    creationTimestamp: "2025-11-20T04:14:51Z"
+    generateName: id-verifications-58cf755f5-
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 58cf755f5
+    name: id-verifications-58cf755f5-8fsd5
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: id-verifications-58cf755f5
+      uid: 312874da-e59a-44d1-afbe-d0d6ee730d24
+    resourceVersion: "485424417"
+    uid: 7b883bb4-1a62-4bd8-ae12-3c8f1727dc77
+  spec:
+    containers:
+    - env:
+      - name: AZURE_CLIENT_ID
+        value: fea123f5-7c04-43a3-bd04-6b013597640a
+      - name: AZURE_TENANT_ID
+        value: 8bf1585c-7d2f-4b2c-8526-ea7ab90d56b9
+      - name: AZURE_FEDERATED_TOKEN_FILE
+        value: /var/run/secrets/azure/tokens/azure-identity-token
+      - name: AZURE_AUTHORITY_HOST
+        value: https://login.microsoftonline.com/
+      envFrom:
+      - configMapRef:
+          name: env
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imagePullPolicy: Always
+      name: id-verifications-api
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-7fxck
+        readOnly: true
+      - mountPath: /var/run/secrets/azure/tokens
+        name: azure-identity-token
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-syspool-13465686-vmss000001
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: veridocid-sa
+    serviceAccountName: veridocid-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-7fxck
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+    - name: azure-identity-token
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            audience: api://AzureADTokenExchange
+            expirationSeconds: 3600
+            path: azure-identity-token
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:22Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:21Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:22Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:22Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:21Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://d6899348e9e29a5e70ead7ee0310e8210f4dea804e6a50fef5b727148da22b82
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imageID: idverifications.azurecr.io/id-verifications-api@sha256:bb131c8b1f34f6a42d6e79d2b31b007e9f4f6354b42399c1162bb4b72f044a6b
+      lastState: {}
+      name: id-verifications-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T04:15:22Z"
+    hostIP: 10.224.0.7
+    hostIPs:
+    - ip: 10.224.0.7
+    phase: Running
+    podIP: 10.244.10.254
+    podIPs:
+    - ip: 10.244.10.254
+    qosClass: Burstable
+    startTime: "2025-11-20T04:15:21Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-797
+    creationTimestamp: "2025-11-20T04:14:27Z"
+    generateName: id-verifications-58cf755f5-
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 58cf755f5
+    name: id-verifications-58cf755f5-b5nt6
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: id-verifications-58cf755f5
+      uid: 312874da-e59a-44d1-afbe-d0d6ee730d24
+    resourceVersion: "485424153"
+    uid: 63f0bdf6-b4e5-4df2-9754-a92c2cc9b519
+  spec:
+    containers:
+    - env:
+      - name: AZURE_CLIENT_ID
+        value: fea123f5-7c04-43a3-bd04-6b013597640a
+      - name: AZURE_TENANT_ID
+        value: 8bf1585c-7d2f-4b2c-8526-ea7ab90d56b9
+      - name: AZURE_FEDERATED_TOKEN_FILE
+        value: /var/run/secrets/azure/tokens/azure-identity-token
+      - name: AZURE_AUTHORITY_HOST
+        value: https://login.microsoftonline.com/
+      envFrom:
+      - configMapRef:
+          name: env
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imagePullPolicy: Always
+      name: id-verifications-api
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-hfjv6
+        readOnly: true
+      - mountPath: /var/run/secrets/azure/tokens
+        name: azure-identity-token
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-syspool-13465686-vmss000001
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: veridocid-sa
+    serviceAccountName: veridocid-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-hfjv6
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+    - name: azure-identity-token
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            audience: api://AzureADTokenExchange
+            expirationSeconds: 3600
+            path: azure-identity-token
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:14:50Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:14:27Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:14:50Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:14:50Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:14:27Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://c2c7e896a11e708966344c0ce0a611d3a94214461d194dabb0eadb6fcba2637e
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imageID: idverifications.azurecr.io/id-verifications-api@sha256:bb131c8b1f34f6a42d6e79d2b31b007e9f4f6354b42399c1162bb4b72f044a6b
+      lastState: {}
+      name: id-verifications-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T04:14:50Z"
+    hostIP: 10.224.0.7
+    hostIPs:
+    - ip: 10.224.0.7
+    phase: Running
+    podIP: 10.244.10.253
+    podIPs:
+    - ip: 10.244.10.253
+    qosClass: Burstable
+    startTime: "2025-11-20T04:14:27Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-797
+    creationTimestamp: "2025-11-20T04:14:27Z"
+    generateName: id-verifications-58cf755f5-
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 58cf755f5
+    name: id-verifications-58cf755f5-ltk7d
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: id-verifications-58cf755f5
+      uid: 312874da-e59a-44d1-afbe-d0d6ee730d24
+    resourceVersion: "485424397"
+    uid: 30b764b9-9e89-4e76-864a-a174053681dc
+  spec:
+    containers:
+    - env:
+      - name: AZURE_CLIENT_ID
+        value: fea123f5-7c04-43a3-bd04-6b013597640a
+      - name: AZURE_TENANT_ID
+        value: 8bf1585c-7d2f-4b2c-8526-ea7ab90d56b9
+      - name: AZURE_FEDERATED_TOKEN_FILE
+        value: /var/run/secrets/azure/tokens/azure-identity-token
+      - name: AZURE_AUTHORITY_HOST
+        value: https://login.microsoftonline.com/
+      envFrom:
+      - configMapRef:
+          name: env
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imagePullPolicy: Always
+      name: id-verifications-api
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-w8tw4
+        readOnly: true
+      - mountPath: /var/run/secrets/azure/tokens
+        name: azure-identity-token
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-syspool-13465686-vmss00000g
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: veridocid-sa
+    serviceAccountName: veridocid-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-w8tw4
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+    - name: azure-identity-token
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            audience: api://AzureADTokenExchange
+            expirationSeconds: 3600
+            path: azure-identity-token
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:22Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:14:57Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:22Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:22Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:14:57Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://b3b63b32b27e31e20bb63c5a81c144173b8ae98d035a085531e2de6d4dafda6d
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imageID: idverifications.azurecr.io/id-verifications-api@sha256:bb131c8b1f34f6a42d6e79d2b31b007e9f4f6354b42399c1162bb4b72f044a6b
+      lastState: {}
+      name: id-verifications-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T04:15:22Z"
+    hostIP: 10.224.0.12
+    hostIPs:
+    - ip: 10.224.0.12
+    phase: Running
+    podIP: 10.244.2.227
+    podIPs:
+    - ip: 10.244.2.227
+    qosClass: Burstable
+    startTime: "2025-11-20T04:14:57Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-797
+    creationTimestamp: "2025-11-20T04:15:22Z"
+    generateName: id-verifications-58cf755f5-
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 58cf755f5
+    name: id-verifications-58cf755f5-nwssb
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: id-verifications-58cf755f5
+      uid: 312874da-e59a-44d1-afbe-d0d6ee730d24
+    resourceVersion: "485424911"
+    uid: 2203a71f-1dcf-4013-a0d0-3e023f5e9bdb
+  spec:
+    containers:
+    - env:
+      - name: AZURE_CLIENT_ID
+        value: fea123f5-7c04-43a3-bd04-6b013597640a
+      - name: AZURE_TENANT_ID
+        value: 8bf1585c-7d2f-4b2c-8526-ea7ab90d56b9
+      - name: AZURE_FEDERATED_TOKEN_FILE
+        value: /var/run/secrets/azure/tokens/azure-identity-token
+      - name: AZURE_AUTHORITY_HOST
+        value: https://login.microsoftonline.com/
+      envFrom:
+      - configMapRef:
+          name: env
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imagePullPolicy: Always
+      name: id-verifications-api
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 1500m
+          memory: 2560Mi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-5kbwg
+        readOnly: true
+      - mountPath: /var/run/secrets/azure/tokens
+        name: azure-identity-token
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000u
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: veridocid-sa
+    serviceAccountName: veridocid-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-5kbwg
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+    - name: azure-identity-token
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            audience: api://AzureADTokenExchange
+            expirationSeconds: 3600
+            path: azure-identity-token
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:16:16Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:53Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:16:16Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:16:16Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:15:53Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://a4c1ada8eb01af19ea6c490edf06e341dc409311c6b1da65027877c5295c2bc1
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imageID: idverifications.azurecr.io/id-verifications-api@sha256:bb131c8b1f34f6a42d6e79d2b31b007e9f4f6354b42399c1162bb4b72f044a6b
+      lastState: {}
+      name: id-verifications-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T04:16:15Z"
+    hostIP: 10.224.0.10
+    hostIPs:
+    - ip: 10.224.0.10
+    phase: Running
+    podIP: 10.244.0.69
+    podIPs:
+    - ip: 10.244.0.69
+    qosClass: Burstable
+    startTime: "2025-11-20T04:15:53Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"acme-challenge-service","namespace":"default"},"spec":{"ports":[{"port":81,"protocol":"TCP","targetPort":3001}],"selector":{"app":"acme-challenge"}}}
+    creationTimestamp: "2024-10-24T22:47:38Z"
+    name: acme-challenge-service
+    namespace: default
+    resourceVersion: "282849287"
+    uid: e1858fd7-f534-4171-83d4-14bc6ecaee54
+  spec:
+    clusterIP: 10.0.159.131
+    clusterIPs:
+    - 10.0.159.131
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 81
+      protocol: TCP
+      targetPort: 3001
+    selector:
+      app: acme-challenge
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2023-11-28T20:56:10Z"
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: api-blockchain-service
+    name: api-blockchain-service
+    namespace: default
+    resourceVersion: "358654728"
+    uid: e171c32a-38c4-498b-8b12-606a1119bdea
+  spec:
+    clusterIP: 10.0.198.128
+    clusterIPs:
+    - 10.0.198.128
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: api-blockchain
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2023-03-17T00:37:35Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: api-reports-service
+    name: api-reports-service
+    namespace: default
+    resourceVersion: "366686086"
+    uid: e8871050-9b61-4d88-8ad8-d4ee4dc4d560
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.0.6.90
+    clusterIPs:
+    - 10.0.6.90
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 31895
+      port: 8080
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: api-reports
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 20.112.55.15
+        ipMode: VIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: api-reports-ingress-subnet
+    creationTimestamp: "2023-03-17T00:58:04Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: api-reports-service-internal
+    name: api-reports-service-internal
+    namespace: default
+    resourceVersion: "366686127"
+    uid: 2be84278-d808-426b-9ac3-ba062adbc1e3
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.0.149.124
+    clusterIPs:
+    - 10.0.149.124
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 31971
+      port: 8080
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: api-reports
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 10.225.1.4
+        ipMode: VIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-06-04T09:08:59Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: api-sign-service
+    name: api-sign-service
+    namespace: default
+    resourceVersion: "388224026"
+    uid: abf26ebd-4ad0-404c-a068-ba2968391c27
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.0.179.185
+    clusterIPs:
+    - 10.0.179.185
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 30661
+      port: 8080
+      protocol: TCP
+      targetPort: 3001
+    selector:
+      app: api-sign
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 172.179.166.96
+        ipMode: VIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      service.beta.kubernetes.io/azure-load-balancer-internal-subnet: api-sign-ingress-subnet
+    creationTimestamp: "2025-06-04T09:08:59Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: api-sign-service-internal
+    name: api-sign-service-internal
+    namespace: default
+    resourceVersion: "388224121"
+    uid: faa22dc1-8eeb-4cad-8f5c-cd14594d2679
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.0.255.4
+    clusterIPs:
+    - 10.0.255.4
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 31777
+      port: 8080
+      protocol: TCP
+      targetPort: 3001
+    selector:
+      app: api-sign
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 10.225.4.4
+        ipMode: VIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2022-10-04T02:05:08Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: id-verifications-api
+    name: id-verifications-api
+    namespace: default
+    resourceVersion: "366686253"
+    uid: dd743cf0-d1a1-4b9b-9b0d-34a722e63a06
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.0.181.159
+    clusterIPs:
+    - 10.0.181.159
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 31752
+      port: 8080
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: id-verifications
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 20.72.225.209
+        ipMode: VIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2022-09-29T03:29:14Z"
+    labels:
+      component: apiserver
+      provider: kubernetes
+    name: kubernetes
+    namespace: default
+    resourceVersion: "207"
+    uid: 0f1300ab-196b-457f-b65b-4f8641754126
+  spec:
+    clusterIP: 10.0.0.1
+    clusterIPs:
+    - 10.0.0.1
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "16"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2023-11-28T20:56:10Z"
+    generation: 16
+    labels:
+      app: api-blockchain
+      app.kubernetes.io/managed-by: Helm
+    name: api-blockchain
+    namespace: default
+    resourceVersion: "485388483"
+    uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: api-blockchain
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-19
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-11-28T20:56:10Z"
+      lastUpdateTime: "2025-04-11T01:03:17Z"
+      message: ReplicaSet "api-blockchain-656cdbd86c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-11-20T02:53:48Z"
+      lastUpdateTime: "2025-11-20T02:53:48Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 16
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "209"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2023-03-17T00:37:35Z"
+    generation: 209
+    labels:
+      app: api-reports
+      app.kubernetes.io/managed-by: Helm
+    name: api-reports
+    namespace: default
+    resourceVersion: "485977598"
+    uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: api-reports
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-214
+        creationTimestamp: null
+        labels:
+          app: api-reports
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2023-03-17T00:37:35Z"
+      lastUpdateTime: "2025-11-12T23:14:49Z"
+      message: ReplicaSet "api-reports-569d9dc89c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-11-21T01:44:16Z"
+      lastUpdateTime: "2025-11-21T01:44:16Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 209
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "15"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-06-04T09:09:00Z"
+    generation: 15
+    labels:
+      app: api-sign
+      app.kubernetes.io/managed-by: Helm
+    name: api-sign
+    namespace: default
+    resourceVersion: "485388774"
+    uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: api-sign
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-15
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2025-06-04T09:09:00Z"
+      lastUpdateTime: "2025-11-08T02:49:40Z"
+      message: ReplicaSet "api-sign-64b848c794" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-11-20T02:54:05Z"
+      lastUpdateTime: "2025-11-20T02:54:05Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 15
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "734"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2022-10-03T21:13:12Z"
+    generation: 760
+    labels:
+      app: id-verifications
+      app.kubernetes.io/managed-by: Helm
+    name: id-verifications
+    namespace: default
+    resourceVersion: "485424914"
+    uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 4
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: id-verifications
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-797
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 4
+    conditions:
+    - lastTransitionTime: "2025-11-20T02:54:33Z"
+      lastUpdateTime: "2025-11-20T02:54:33Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-10-31T06:40:52Z"
+      lastUpdateTime: "2025-11-20T04:16:16Z"
+      message: ReplicaSet "id-verifications-58cf755f5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 760
+    readyReplicas: 4
+    replicas: 4
+    updatedReplicas: 4
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "7"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2024-03-05T00:12:26Z"
+    generation: 6
+    labels:
+      app: api-blockchain
+      pod-template-hash: 54fccdcbd4
+    name: api-blockchain-54fccdcbd4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "202242509"
+    uid: 8675439a-b130-48da-9acc-8a31f57b1a19
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 54fccdcbd4
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-8
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 54fccdcbd4
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 6
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "12"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-03-12T01:16:44Z"
+    generation: 4
+    labels:
+      app: api-blockchain
+      pod-template-hash: 55766cc757
+    name: api-blockchain-55766cc757
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "346365819"
+    uid: c5e7ba10-f048-4982-9e30-0d61c8875aab
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 55766cc757
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-13
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 55766cc757
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "16"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-04-11T01:03:06Z"
+    generation: 1
+    labels:
+      app: api-blockchain
+      pod-template-hash: 656cdbd86c
+    name: api-blockchain-656cdbd86c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "485388482"
+    uid: 0356c771-4ed5-43f7-a159-69fca76ad47f
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 656cdbd86c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-19
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 656cdbd86c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "15"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-04-07T18:45:59Z"
+    generation: 2
+    labels:
+      app: api-blockchain
+      pod-template-hash: 658c994d68
+    name: api-blockchain-658c994d68
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "360154866"
+    uid: 00ef1a6c-864c-4f65-96e2-2d059cbb629f
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 658c994d68
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-1
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 658c994d68
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "3"
+      deployment.kubernetes.io/max-replicas: "4"
+      deployment.kubernetes.io/revision: "6"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2024-01-30T23:54:42Z"
+    generation: 6
+    labels:
+      app: api-blockchain
+      pod-template-hash: 6785d9f4f
+    name: api-blockchain-6785d9f4f
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "185991391"
+    uid: 0b3425f5-b772-448b-81cd-ea895908e3e9
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 6785d9f4f
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-7
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 6785d9f4f
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 6
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "10"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-02-18T02:29:06Z"
+    generation: 4
+    labels:
+      app: api-blockchain
+      pod-template-hash: 67f9f5897f
+    name: api-blockchain-67f9f5897f
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "346255658"
+    uid: d292f998-c3a1-460d-bc38-87e9f20f0c0d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 67f9f5897f
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-11
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 67f9f5897f
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "14"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-03-12T01:53:48Z"
+    generation: 4
+    labels:
+      app: api-blockchain
+      pod-template-hash: 75744c9955
+    name: api-blockchain-75744c9955
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "358654554"
+    uid: 94cbd82a-7f1e-46ea-a61f-590cce903c9b
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 75744c9955
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-15
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 75744c9955
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "11"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-03-11T19:46:02Z"
+    generation: 4
+    labels:
+      app: api-blockchain
+      pod-template-hash: 75c5c7b898
+    name: api-blockchain-75c5c7b898
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "346361276"
+    uid: 66baf789-9317-46cb-9bb1-989b8ee97393
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 75c5c7b898
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-12
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 75c5c7b898
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "9"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2024-05-14T19:18:55Z"
+    generation: 4
+    labels:
+      app: api-blockchain
+      pod-template-hash: 785b66748d
+    name: api-blockchain-785b66748d
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "336259643"
+    uid: 0e575166-c185-45a4-86f3-159847855397
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 785b66748d
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-10
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 785b66748d
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "8"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2024-04-15T17:53:25Z"
+    generation: 4
+    labels:
+      app: api-blockchain
+      pod-template-hash: 7dbbfb44cf
+    name: api-blockchain-7dbbfb44cf
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "214231264"
+    uid: 870d7f49-fb7d-4fb4-88c6-fa13ea373d1b
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: 7dbbfb44cf
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-10
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: 7dbbfb44cf
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "13"
+      meta.helm.sh/release-name: api-blockchain
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-03-12T01:30:42Z"
+    generation: 4
+    labels:
+      app: api-blockchain
+      pod-template-hash: b4fb5dfd4
+    name: api-blockchain-b4fb5dfd4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-blockchain
+      uid: 7e458e26-202a-48ef-b483-7e0246462a3c
+    resourceVersion: "346373230"
+    uid: 0076dbb9-1d96-4680-a15b-33c8f554f6a7
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-blockchain
+        pod-template-hash: b4fb5dfd4
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-14
+          kubectl.kubernetes.io/restartedAt: "2024-05-14T13:18:56-06:00"
+        creationTimestamp: null
+        labels:
+          app: api-blockchain
+          pod-template-hash: b4fb5dfd4
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-blockchain-env
+          image: idverifications.azurecr.io/api-blockchain:latest
+          imagePullPolicy: Always
+          name: api-blockchain
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "209"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-12T23:14:17Z"
+    generation: 2
+    labels:
+      app: api-reports
+      pod-template-hash: 569d9dc89c
+    name: api-reports-569d9dc89c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "485977596"
+    uid: 132d3764-b15c-4f3d-bad9-43a668b51365
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 569d9dc89c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-214
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 569d9dc89c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 2
+    readyReplicas: 2
+    replicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "203"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-06T01:53:05Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 5c569588b6
+    name: api-reports-5c569588b6
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "477179361"
+    uid: 4176e6f2-7766-4d6e-9004-849888d8e6df
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 5c569588b6
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-208
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 5c569588b6
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "204"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-06T22:16:02Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 5c6598849f
+    name: api-reports-5c6598849f
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "477477634"
+    uid: 1fc77594-f86f-4ea1-a3e0-035857f0028b
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 5c6598849f
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-209
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 5c6598849f
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "201"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-10-06T21:19:27Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 5d777b56cb
+    name: api-reports-5d777b56cb
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "462432357"
+    uid: ebec6fd2-37dc-4038-a477-b60d8d87d7ad
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 5d777b56cb
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-206
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 5d777b56cb
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "205"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-07T09:42:57Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 5f4b6cd95c
+    name: api-reports-5f4b6cd95c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "477673551"
+    uid: d883f948-a646-4612-b88f-10239056e604
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 5f4b6cd95c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-210
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 5f4b6cd95c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "206"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-07T17:21:19Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 6747c5f8c6
+    name: api-reports-6747c5f8c6
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "478418306"
+    uid: 1e015c9a-a405-4bb8-9887-c81dfe808a4d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 6747c5f8c6
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-211
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 6747c5f8c6
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "200"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-09-26T00:30:02Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 6996997f79
+    name: api-reports-6996997f79
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "458281533"
+    uid: d04582d7-95ea-4ec5-94bf-1d6a2d1ec171
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 6996997f79
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-205
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 6996997f79
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "199"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-08-29T18:10:37Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 74698d4dbb
+    name: api-reports-74698d4dbb
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "451685944"
+    uid: 5083cfe4-ec56-45cd-9b2a-c16da245e871
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 74698d4dbb
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-204
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 74698d4dbb
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "207"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-08T22:23:45Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 75b666578c
+    name: api-reports-75b666578c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "480844027"
+    uid: 76f9d301-e317-4875-bf6d-ccd9d740dcfc
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 75b666578c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-212
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 75b666578c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "202"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-10-13T17:30:08Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: 7bd7469c
+    name: api-reports-7bd7469c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "476656418"
+    uid: e39aba55-e757-4510-8306-80b78f44512b
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: 7bd7469c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-207
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: 7bd7469c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "208"
+      meta.helm.sh/release-name: api-reports
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-12T20:18:32Z"
+    generation: 4
+    labels:
+      app: api-reports
+      pod-template-hash: dd6d6cfc8
+    name: api-reports-dd6d6cfc8
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-reports
+      uid: 3da469ba-02c4-44f7-8fca-9a7310497aa8
+    resourceVersion: "480920375"
+    uid: 3fb57527-e1a3-42e8-8e84-af3548a6facb
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-reports
+        pod-template-hash: dd6d6cfc8
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-213
+        creationTimestamp: null
+        labels:
+          app: api-reports
+          pod-template-hash: dd6d6cfc8
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-reports-env
+          image: idverifications.azurecr.io/api-reports:latest
+          imagePullPolicy: Always
+          name: api-reports
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "11"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-10-07T06:57:37Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 5f8d797c98
+    name: api-sign-5f8d797c98
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "477464841"
+    uid: 8a175810-8f2d-4fbc-a7e2-223b66ccf244
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 5f8d797c98
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-11
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 5f8d797c98
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "10"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-09-20T02:13:08Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 645cd98975
+    name: api-sign-645cd98975
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "458525304"
+    uid: 4a57902c-6efc-4095-9d40-c48a67c943b5
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 645cd98975
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-10
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 645cd98975
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "13"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-07T09:54:36Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 64995957f6
+    name: api-sign-64995957f6
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "477778439"
+    uid: 88b9fc93-a85b-47d2-8210-d94ce5940cac
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 64995957f6
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-13
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 64995957f6
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "15"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-08T02:49:18Z"
+    generation: 2
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 64b848c794
+    name: api-sign-64b848c794
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "485388773"
+    uid: e83bd55d-080e-40ff-ba5e-c5a751776006
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 64b848c794
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-15
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 64b848c794
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 2
+    readyReplicas: 2
+    replicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "5"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-06-11T22:53:34Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 6869f685b9
+    name: api-sign-6869f685b9
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "396251756"
+    uid: 762001f5-68ec-4acb-aa8a-a59545d968cd
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 6869f685b9
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-5
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 6869f685b9
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "14"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-07T21:26:12Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 6c77f98555
+    name: api-sign-6c77f98555
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "477916573"
+    uid: 8f013f32-61d6-4365-965f-213535ede388
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 6c77f98555
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-14
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 6c77f98555
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "12"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-07T09:13:11Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 75d964d6fc
+    name: api-sign-75d964d6fc
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "477482672"
+    uid: 81a1e819-2e5e-43f1-8e3d-1dbe78559cc5
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 75d964d6fc
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-12
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 75d964d6fc
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "8"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-08-12T00:23:44Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 7989dcfdd4
+    name: api-sign-7989dcfdd4
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "435516765"
+    uid: 666c487b-ce4f-4282-a403-7f3cc4f4a396
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 7989dcfdd4
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-8
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 7989dcfdd4
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "7"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-06-28T00:06:27Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: 79dd8c66c5
+    name: api-sign-79dd8c66c5
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "425517966"
+    uid: 3f21637f-f96b-45ec-ab61-46bc2482260e
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: 79dd8c66c5
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-7
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: 79dd8c66c5
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "9"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-08-29T03:44:51Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: b7c74dc97
+    name: api-sign-b7c74dc97
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "448082390"
+    uid: bd0b9c81-a678-4687-97fe-a87d6301be00
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: b7c74dc97
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-9
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: b7c74dc97
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "6"
+      meta.helm.sh/release-name: api-sign
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-06-19T04:54:54Z"
+    generation: 4
+    labels:
+      app: api-sign
+      azure.workload.identity/use: "true"
+      pod-template-hash: fd9cfd
+    name: api-sign-fd9cfd
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: api-sign
+      uid: c50a48fe-77b5-4f22-b5b5-ec0c10a6266f
+    resourceVersion: "401022276"
+    uid: 59d0e505-928f-4e36-a868-bed08a768431
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: api-sign
+        pod-template-hash: fd9cfd
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-6
+        creationTimestamp: null
+        labels:
+          app: api-sign
+          azure.workload.identity/use: "true"
+          pod-template-hash: fd9cfd
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: api-sign-env
+          image: idverifications.azurecr.io/api-sign:latest
+          imagePullPolicy: Always
+          name: api-sign
+          ports:
+          - containerPort: 3001
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1200m
+              memory: 3Gi
+            requests:
+              cpu: 300m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "734"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-20T04:14:27Z"
+    generation: 4
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 58cf755f5
+    name: id-verifications-58cf755f5
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "485424913"
+    uid: 312874da-e59a-44d1-afbe-d0d6ee730d24
+  spec:
+    replicas: 4
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 58cf755f5
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-797
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 58cf755f5
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 4
+    fullyLabeledReplicas: 4
+    observedGeneration: 4
+    readyReplicas: 4
+    replicas: 4
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "731"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-18T21:48:31Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 66d88d8964
+    name: id-verifications-66d88d8964
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "484638213"
+    uid: 102c56fe-ec93-462a-b5a2-e117d9236f1d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 66d88d8964
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-794
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 66d88d8964
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "724"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-05T20:08:46Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 68b8f76d9b
+    name: id-verifications-68b8f76d9b
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "479720420"
+    uid: 82f1a027-c8d3-4dee-929b-ee0a64fd7858
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 68b8f76d9b
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-787
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 68b8f76d9b
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "727"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-13T08:45:40Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 6d64fb7d6d
+    name: id-verifications-6d64fb7d6d
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "481178108"
+    uid: 1def12a7-31db-4092-bd91-9b2a94886b8c
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 6d64fb7d6d
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-790
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 6d64fb7d6d
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "726"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-11T01:29:46Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 6d7cd456fd
+    name: id-verifications-6d7cd456fd
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "481168519"
+    uid: dd3d7619-d323-4467-bb0e-c53a4a043db1
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 6d7cd456fd
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-789
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 6d7cd456fd
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "725"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-11T01:07:54Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 6f669d558c
+    name: id-verifications-6f669d558c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "479729039"
+    uid: 9b66f069-4ee2-4b28-ad8f-156acd3fb26c
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 6f669d558c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-788
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 6f669d558c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "729"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-14T00:14:32Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 77999547f8
+    name: id-verifications-77999547f8
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "482122152"
+    uid: 1eb9beb7-4f03-4b12-a67f-535b5e1dabc1
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 77999547f8
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-792
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 77999547f8
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "730"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-14T21:17:26Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 79bff56575
+    name: id-verifications-79bff56575
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "484630872"
+    uid: 94b819b5-59cb-4ab6-bbec-8d9255c88683
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 79bff56575
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-793
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 79bff56575
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "732"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-18T22:04:05Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 7cc749949
+    name: id-verifications-7cc749949
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "485174234"
+    uid: adcd6fb1-3181-443d-b646-100776a389b2
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 7cc749949
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-795
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 7cc749949
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "733"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-19T18:39:31Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 7f8867cc6b
+    name: id-verifications-7f8867cc6b
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "485424427"
+    uid: a08c7871-7b92-4a14-81c4-b9437a3c33c5
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 7f8867cc6b
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-796
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 7f8867cc6b
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "4"
+      deployment.kubernetes.io/max-replicas: "5"
+      deployment.kubernetes.io/revision: "728"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2025-11-13T09:06:28Z"
+    generation: 8
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 867db6fd7c
+    name: id-verifications-867db6fd7c
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 5e05a63e-8334-4440-ba14-eb8f60f1d7be
+    resourceVersion: "481573605"
+    uid: fdb303a7-aa3b-488b-8e2c-5cd2c80f4bb9
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 867db6fd7c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-791
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 867db6fd7c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2560Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 8
+    replicas: 0
+kind: List
+metadata:
+  resourceVersion: ""

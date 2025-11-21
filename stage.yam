@@ -1,0 +1,1062 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      ci_commit: t-107
+    creationTimestamp: "2025-11-20T04:12:56Z"
+    generateName: id-verifications-5dd66b7-
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 5dd66b7
+    name: id-verifications-5dd66b7-kl5c2
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: id-verifications-5dd66b7
+      uid: e41aa083-1d03-4be6-a1b3-7f5f9d76b86b
+    resourceVersion: "485423380"
+    uid: cbad53fa-19bf-4e9c-bdab-96846cfffa2e
+  spec:
+    containers:
+    - env:
+      - name: AZURE_CLIENT_ID
+        value: f4b2c3d4-5678-90ab-cdef-1234567890ab
+      - name: AZURE_TENANT_ID
+        value: 8bf1585c-7d2f-4b2c-8526-ea7ab90d56b9
+      - name: AZURE_FEDERATED_TOKEN_FILE
+        value: /var/run/secrets/azure/tokens/azure-identity-token
+      - name: AZURE_AUTHORITY_HOST
+        value: https://login.microsoftonline.com/
+      envFrom:
+      - configMapRef:
+          name: env
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imagePullPolicy: Always
+      name: id-verifications-api
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 200m
+          memory: 512Mi
+        requests:
+          cpu: 50m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-gp8fx
+        readOnly: true
+      - mountPath: /var/run/secrets/azure/tokens
+        name: azure-identity-token
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-syspool-13465686-vmss000000
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: veridocid-sa
+    serviceAccountName: veridocid-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: kube-api-access-gp8fx
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+    - name: azure-identity-token
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            audience: api://AzureADTokenExchange
+            expirationSeconds: 3600
+            path: azure-identity-token
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:13:19Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:12:56Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:13:19Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:13:19Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T04:12:56Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://48318ecd9178b24d884424bc62448519df392e233c7f7fc72bf25ee82d8ec3a3
+      image: idverifications.azurecr.io/id-verifications-api:latest
+      imageID: idverifications.azurecr.io/id-verifications-api@sha256:bb131c8b1f34f6a42d6e79d2b31b007e9f4f6354b42399c1162bb4b72f044a6b
+      lastState: {}
+      name: id-verifications-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T04:13:18Z"
+    hostIP: 10.224.0.5
+    hostIPs:
+    - ip: 10.224.0.5
+    phase: Running
+    podIP: 10.244.9.102
+    podIPs:
+    - ip: 10.244.9.102
+    qosClass: Burstable
+    startTime: "2025-11-20T04:12:56Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-06-25T23:50:25Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app.kubernetes.io/managed-by: Helm
+      run: id-verifications-api
+    name: id-verifications-api
+    namespace: stage
+    resourceVersion: "400429912"
+    uid: a285850d-a6e5-4a97-94cc-5ea1f7929897
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.0.105.153
+    clusterIPs:
+    - 10.0.105.153
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 30998
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: id-verifications
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 172.179.97.159
+        ipMode: VIP
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "82"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-07-23T18:08:59Z"
+    generation: 82
+    labels:
+      app: id-verifications
+      app.kubernetes.io/managed-by: Helm
+    name: id-verifications
+    namespace: stage
+    resourceVersion: "485423390"
+    uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: id-verifications
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-107
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-11-20T02:54:36Z"
+      lastUpdateTime: "2025-11-20T02:54:36Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-09-26T10:33:13Z"
+      lastUpdateTime: "2025-11-20T04:13:19Z"
+      message: ReplicaSet "id-verifications-5dd66b7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 82
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "81"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-19T18:30:53Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 546496cdb4
+    name: id-verifications-546496cdb4
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "485423389"
+    uid: bb527c79-4a9d-49d0-b4f5-b71d6474e7b8
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 546496cdb4
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-106
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 546496cdb4
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "76"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-13T09:04:54Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 558b65f9b5
+    name: id-verifications-558b65f9b5
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "481552348"
+    uid: 76e551b1-87e2-4ea7-bed6-93b47007635a
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 558b65f9b5
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-101
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 558b65f9b5
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "75"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-13T00:05:24Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 56b4fbf9bb
+    name: id-verifications-56b4fbf9bb
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "481177159"
+    uid: 15e76729-6b85-47c2-8319-245aa6a097bd
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 56b4fbf9bb
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-100
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 56b4fbf9bb
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "74"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-11T01:28:45Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 59fc94dbff
+    name: id-verifications-59fc94dbff
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "480942558"
+    uid: 6715a794-8f1e-4614-b2b9-4c0e6d6b2187
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 59fc94dbff
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-99
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 59fc94dbff
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "82"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-20T04:12:55Z"
+    generation: 1
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 5dd66b7
+    name: id-verifications-5dd66b7
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "485423381"
+    uid: e41aa083-1d03-4be6-a1b3-7f5f9d76b86b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 5dd66b7
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-107
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 5dd66b7
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "72"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-05T19:55:14Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 64b77cbc5c
+    name: id-verifications-64b77cbc5c
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "479683408"
+    uid: eae0518a-0ed7-4b22-992d-3673b1ee0f0d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 64b77cbc5c
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-97
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 64b77cbc5c
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "73"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-10T23:44:20Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 686df544dd
+    name: id-verifications-686df544dd
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "479728417"
+    uid: 3557037a-5e1b-42c5-ae1f-ff617ad47a0e
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 686df544dd
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-98
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 686df544dd
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "78"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-14T20:53:50Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 6dff9975cf
+    name: id-verifications-6dff9975cf
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "484574945"
+    uid: 770813c9-b86b-4d5b-a8d4-d10db45d1344
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 6dff9975cf
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-103
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 6dff9975cf
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "80"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-18T21:59:39Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 7cc9f757b9
+    name: id-verifications-7cc9f757b9
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "485170292"
+    uid: 331223e8-1611-4bef-80be-a43d614ee5b6
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 7cc9f757b9
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-105
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 7cc9f757b9
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "79"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-18T19:40:10Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 7f6c687b9d
+    name: id-verifications-7f6c687b9d
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "484635830"
+    uid: 16fa8c08-0111-4a37-a1ed-6eed14e1b51a
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 7f6c687b9d
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-104
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 7f6c687b9d
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "77"
+      meta.helm.sh/release-name: id-verifications-api
+      meta.helm.sh/release-namespace: stage
+    creationTimestamp: "2025-11-13T23:25:56Z"
+    generation: 2
+    labels:
+      app: id-verifications
+      azure.workload.identity/use: "true"
+      pod-template-hash: 8455b57956
+    name: id-verifications-8455b57956
+    namespace: stage
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: id-verifications
+      uid: 26cb0464-4321-4b4c-a0f6-f38674aa3d0d
+    resourceVersion: "482111605"
+    uid: a8a23a5a-b6e0-48a4-b4ec-d5783debf676
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: id-verifications
+        pod-template-hash: 8455b57956
+    template:
+      metadata:
+        annotations:
+          ci_commit: t-102
+        creationTimestamp: null
+        labels:
+          app: id-verifications
+          azure.workload.identity/use: "true"
+          pod-template-hash: 8455b57956
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: env
+          image: idverifications.azurecr.io/id-verifications-api:latest
+          imagePullPolicy: Always
+          name: id-verifications-api
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: veridocid-sa
+        serviceAccountName: veridocid-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+kind: List
+metadata:
+  resourceVersion: ""

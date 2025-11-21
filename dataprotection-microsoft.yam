@@ -1,0 +1,3198 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/default-container: manager
+      kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+    creationTimestamp: "2025-11-20T02:53:31Z"
+    generateName: dataprotection-microsoft-controller-798fb4f88-
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      control-plane: dataprotection-microsoft-controller
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+      pod-template-hash: 798fb4f88
+    name: dataprotection-microsoft-controller-798fb4f88-29g89
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: dataprotection-microsoft-controller-798fb4f88
+      uid: 0b7bec84-16b0-4034-8712-784a4d400259
+    resourceVersion: "485388813"
+    uid: d979592e-3c59-487e-99ba-7d8039a92e83
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: dataprotection-microsoft
+              operator: In
+              values:
+              - allow
+          weight: 100
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.azure.com/cluster
+              operator: Exists
+            - key: type
+              operator: NotIn
+              values:
+              - virtual-kubelet
+            - key: kubernetes.io/os
+              operator: In
+              values:
+              - linux
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
+    containers:
+    - env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.name
+      image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+      imagePullPolicy: IfNotPresent
+      name: fluent-bit
+      resources:
+        limits:
+          cpu: 30m
+          memory: 128Mi
+        requests:
+          cpu: 20m
+          memory: 64Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /fluent-bit/etc
+        name: fluentbit-config
+      - mountPath: /var/log/containers
+        name: var-log-containers
+        readOnly: true
+      - mountPath: /var/log/pods
+        name: var-log-pods
+        readOnly: true
+      - mountPath: /var/lib/docker/containers
+        name: var-lib-containers
+        readOnly: true
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-ntmzk
+        readOnly: true
+    - args:
+      - --leader-elect
+      command:
+      - /manager
+      env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: WATCH_NAMESPACE
+        value: dataprotection-microsoft
+      - name: CLUSTER_ARM_ID
+        value: /subscriptions/77b72616-d4b8-47cb-9fb6-ff05f5230d4a/resourceGroups/veridocid/providers/Microsoft.ContainerService/managedclusters/cluster-id-verification
+      image: mcr.microsoft.com/azurebackup/k8s/controller:0.0.03174.602
+      imagePullPolicy: IfNotPresent
+      name: manager
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-ntmzk
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000t
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: dataprotection-microsoft-controller-sa
+    serviceAccountName: dataprotection-microsoft-controller-sa
+    terminationGracePeriodSeconds: 10
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: dataprotection-microsoft-controller-fluentbit-config
+      name: fluentbit-config
+    - hostPath:
+        path: /var/log/containers
+        type: ""
+      name: var-log-containers
+    - hostPath:
+        path: /var/log/pods
+        type: ""
+      name: var-log-pods
+    - hostPath:
+        path: /var/lib/docker/containers
+        type: ""
+      name: var-lib-containers
+    - name: kube-api-access-ntmzk
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:07Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:07Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:07Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://b23d67c4ac87660e43168a7660dfecb4a574dcd596e2c2758c16577763fb4087
+      image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+      imageID: mcr.microsoft.com/oss/fluent/fluent-bit@sha256:5a525bd85c43571f47e2340d8f8d909993ec456525a0e0915c3a67eb1eeb1e17
+      lastState: {}
+      name: fluent-bit
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:53:51Z"
+    - containerID: containerd://dd9649dd7818750fcad374bfad47d48bc159aa805ff8f369fea1f360f59a6f10
+      image: mcr.microsoft.com/azurebackup/k8s/controller:0.0.03174.602
+      imageID: mcr.microsoft.com/azurebackup/k8s/controller@sha256:27195253b74951023454ece79f55459cb903d5b69b06209079a2b28a3bd00791
+      lastState: {}
+      name: manager
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:54:07Z"
+    hostIP: 10.224.0.14
+    hostIPs:
+    - ip: 10.224.0.14
+    phase: Running
+    podIP: 10.244.5.91
+    podIPs:
+    - ip: 10.244.5.91
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:31Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+    creationTimestamp: "2025-11-20T02:53:31Z"
+    generateName: dataprotection-microsoft-geneva-service-6b59c7cf9b-
+    labels:
+      app.kubernetes.io/component: geneva-service
+      app.kubernetes.io/name: azure-arc-k8s
+      pod-template-hash: 6b59c7cf9b
+    name: dataprotection-microsoft-geneva-service-6b59c7cf9b-84knp
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: dataprotection-microsoft-geneva-service-6b59c7cf9b
+      uid: a452b0e4-3040-4282-93ab-7887d29f6135
+    resourceVersion: "485388486"
+    uid: 4b4036a1-8fc6-44a0-a12f-7dcfda87185c
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: dataprotection-microsoft
+              operator: In
+              values:
+              - allow
+          weight: 100
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.azure.com/cluster
+              operator: Exists
+            - key: type
+              operator: NotIn
+              values:
+              - virtual-kubelet
+            - key: kubernetes.io/os
+              operator: In
+              values:
+              - linux
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
+    containers:
+    - command:
+      - /start_mdsd.sh
+      env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: TENANT
+        value: westus2
+      - name: ROLE
+        value: K8sBCDRExtDiag
+      - name: ROLEINSTANCE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      - name: MONITORING_TENANT
+        value: westus2
+      - name: MONITORING_ROLE
+        value: K8sBCDRExtDiag
+      - name: MONITORING_ROLE_INSTANCE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.nodeName
+      - name: MONITORING_GCS_ENVIRONMENT
+        value: DiagnosticsProd
+      - name: MONITORING_GCS_AUTH_ID_TYPE
+        value: AuthMSIToken
+      - name: MONITORING_GCS_ACCOUNT
+        value: K8sBCDRExtDiag
+      - name: MONITORING_GCS_REGION
+        value: westus2
+      - name: MONITORING_GCS_NAMESPACE
+        value: K8sBCDRExtDiag
+      - name: MONITORING_CONFIG_VERSION
+        value: "2.0"
+      - name: MDSD_DEFAULT_LOG_DIR
+        value: /geneva/geneva_logs
+      - name: MDSD_LOG_DIR
+        value: /geneva/geneva_logs
+      - name: MDSD_CONFIG_DIR
+        value: /geneva/geneva_config
+      - name: FLUENTD_PORT
+        value: "8130"
+      - name: SKIP_IMDS_LOOKUP_FOR_LEGACY_AUTH
+        value: "true"
+      - name: ENABLE_GIG_BRIDGE_MODE
+        value: "true"
+      - name: LOCAL_BINDING
+        value: "0"
+      - name: ENABLE_PERSISTENT_EVENT
+        value: "true"
+      - name: MDSD_MSGPACK_SORT_COLUMNS
+        value: "1"
+      - name: DOCKER_LOGGING
+        value: "true"
+      - name: OTLP_DEBUG_VERBOSE
+        value: "1"
+      image: mcr.microsoft.com/geneva/distroless/mdsd:recommended@sha256:e9ea27e0063d0f450fe1f2fcba3aac239f045ff8418f9841744da9c5107d7818
+      imagePullPolicy: IfNotPresent
+      name: mdsd
+      resources:
+        limits:
+          cpu: 50m
+          memory: 600Mi
+        requests:
+          cpu: 20m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/mdsd
+        name: mdsd-run-vol
+      - mountPath: /geneva/geneva_config
+        name: mdsd-config
+      - mountPath: /geneva/geneva_logs
+        name: mdsd-logs
+      - mountPath: /var/opt/microsoft/linuxmonagent
+        name: mdsd-persistence-vol
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-vm7sw
+        readOnly: true
+    - args:
+      - --secret-namespace=kube-system
+      - --secret-name=extensions-aad-msi-token
+      - --token-server-listening-port=8888
+      - --token-server-forwarding-port=8889
+      - --ignore-aud-trailing-slash=true
+      command:
+      - /addon-token-adapter
+      env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      image: mcr.microsoft.com/aks/msi/addon-token-adapter:master.251015.2
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /healthz
+          port: 9999
+          scheme: HTTP
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: addon-token-adapter
+      resources:
+        limits:
+          cpu: 100m
+          memory: 100Mi
+        requests:
+          cpu: 20m
+          memory: 50Mi
+      securityContext:
+        capabilities:
+          add:
+          - NET_ADMIN
+          - NET_RAW
+          drop:
+          - ALL
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-vm7sw
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: aks-prodpool-27536315-vmss00000t
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: dataprotection-microsoft-geneva-sa
+    serviceAccountName: dataprotection-microsoft-geneva-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - emptyDir: {}
+      name: mdsd-run-vol
+    - emptyDir: {}
+      name: mdsd-config
+    - emptyDir: {}
+      name: mdsd-logs
+    - emptyDir: {}
+      name: mdsd-persistence-vol
+    - name: kube-api-access-vm7sw
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:48Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:48Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:48Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:53:31Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://9dc5443f8336424797ae1147826de1cb4d760cc89e49881a4cbc365c9425d323
+      image: mcr.microsoft.com/aks/msi/addon-token-adapter:master.251015.2
+      imageID: mcr.microsoft.com/aks/msi/addon-token-adapter@sha256:76010315192efaa54591120f14bba1db6a3b1450c50dc8f777a00d83b9188b2c
+      lastState: {}
+      name: addon-token-adapter
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:53:47Z"
+    - containerID: containerd://4d50edb8de7826e03a91596808baa6aa233fbe39a12c638dd078a646d2651ce0
+      image: sha256:0d094c1b731c86ff713991a42fa1c33999cf0be516b8b9f7eafed61a0473a75e
+      imageID: mcr.microsoft.com/geneva/distroless/mdsd@sha256:e9ea27e0063d0f450fe1f2fcba3aac239f045ff8418f9841744da9c5107d7818
+      lastState: {}
+      name: mdsd
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:53:47Z"
+    hostIP: 10.224.0.14
+    hostIPs:
+    - ip: 10.224.0.14
+    phase: Running
+    podIP: 10.244.5.89
+    podIPs:
+    - ip: 10.244.5.89
+    qosClass: Burstable
+    startTime: "2025-11-20T02:53:31Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+      prometheus.io/path: /metrics
+      prometheus.io/port: "8085"
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2025-11-20T02:53:39Z"
+    generateName: dataprotection-microsoft-kubernetes-agent-646b8f498c-
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+      name: velero
+      pod-template-hash: 646b8f498c
+    name: dataprotection-microsoft-kubernetes-agent-646b8f498c-pcp7p
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: dataprotection-microsoft-kubernetes-agent-646b8f498c
+      uid: f1b3632b-50b0-47a2-b0a1-651243a128bf
+    resourceVersion: "485388966"
+    uid: 3bc78a79-ae80-436d-a027-d6b1b8766979
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: dataprotection-microsoft
+              operator: In
+              values:
+              - allow
+          weight: 100
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.azure.com/cluster
+              operator: Exists
+            - key: type
+              operator: NotIn
+              values:
+              - virtual-kubelet
+            - key: kubernetes.io/os
+              operator: In
+              values:
+              - linux
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
+    containers:
+    - env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.name
+      image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+      imagePullPolicy: IfNotPresent
+      name: fluent-bit
+      resources:
+        limits:
+          cpu: 30m
+          memory: 128Mi
+        requests:
+          cpu: 20m
+          memory: 64Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /fluent-bit/etc
+        name: fluentbit-config
+      - mountPath: /var/log/containers
+        name: var-log-containers
+        readOnly: true
+      - mountPath: /var/log/pods
+        name: var-log-pods
+        readOnly: true
+      - mountPath: /var/lib/docker/containers
+        name: var-lib-containers
+        readOnly: true
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-x5frk
+        readOnly: true
+    - args:
+      - server
+      - --features=EnableCSI
+      - --log-level=debug
+      - --log-format=json
+      - --terminating-resource-timeout=1m0s
+      - --default-item-operation-timeout=10m0s
+      - --disable-informer-cache=true
+      command:
+      - /velero
+      env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: VELERO_SCRATCH_DIR
+        value: /scratch
+      - name: VELERO_NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      - name: LD_LIBRARY_PATH
+        value: /plugins
+      - name: AZURE_CREDENTIALS_FILE
+        value: /credentials/cloud
+      image: mcr.microsoft.com/azurebackup/k8s/velero:0.0.03174.602
+      imagePullPolicy: IfNotPresent
+      name: velero
+      ports:
+      - containerPort: 8085
+        name: http-monitoring
+        protocol: TCP
+      resources:
+        limits:
+          cpu: "1"
+          memory: 1750Mi
+        requests:
+          cpu: 500m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /plugins
+        name: plugins
+      - mountPath: /credentials
+        name: cloud-credentials
+      - mountPath: /scratch
+        name: scratch
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-x5frk
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    initContainers:
+    - env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-microsoft-azure:0.0.03174.602
+      imagePullPolicy: IfNotPresent
+      name: velero-plugin-for-microsoft-azure
+      resources:
+        limits:
+          cpu: 50m
+          memory: 50Mi
+        requests:
+          cpu: 10m
+          memory: 20Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /target
+        name: plugins
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-x5frk
+        readOnly: true
+    - env:
+      - name: KUBERNETES_SERVICE_HOST
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      - name: KUBERNETES_PORT
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP
+        value: tcp://cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io:443
+      - name: KUBERNETES_PORT_443_TCP_ADDR
+        value: cluster-id-verification-dns-1a8892f9.hcp.westus2.azmk8s.io
+      image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-csi:0.0.03174.602
+      imagePullPolicy: IfNotPresent
+      name: velero-plugin-for-csi
+      resources:
+        limits:
+          cpu: 50m
+          memory: 50Mi
+        requests:
+          cpu: 10m
+          memory: 20Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /target
+        name: plugins
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-x5frk
+        readOnly: true
+    nodeName: aks-prodpool-27536315-vmss000018
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: dataprotection-microsoft-kubernetes-agent-server
+    serviceAccountName: dataprotection-microsoft-kubernetes-agent-server
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: dataprotection-microsoft-kubernetes-agent-fluentbit-config
+      name: fluentbit-config
+    - hostPath:
+        path: /var/log/containers
+        type: ""
+      name: var-log-containers
+    - hostPath:
+        path: /var/log/pods
+        type: ""
+      name: var-log-pods
+    - hostPath:
+        path: /var/lib/docker/containers
+        type: ""
+      name: var-lib-containers
+    - name: cloud-credentials
+      secret:
+        defaultMode: 420
+        secretName: dataprotection-microsoft-kubernetes-agent-credentials
+    - emptyDir: {}
+      name: plugins
+    - emptyDir: {}
+      name: scratch
+    - name: kube-api-access-x5frk
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:07Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:12Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:19Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:19Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2025-11-20T02:54:05Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://16c6362a8370c9e4b09ba4b98fd87087cdfee58f199295d4967c327bb1a8ab8e
+      image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+      imageID: mcr.microsoft.com/oss/fluent/fluent-bit@sha256:5a525bd85c43571f47e2340d8f8d909993ec456525a0e0915c3a67eb1eeb1e17
+      lastState: {}
+      name: fluent-bit
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:54:16Z"
+    - containerID: containerd://c83f544b195e7685352f49ef75e5fea3fd39b181a8feb9099f536830c41304ba
+      image: mcr.microsoft.com/azurebackup/k8s/velero:0.0.03174.602
+      imageID: mcr.microsoft.com/azurebackup/k8s/velero@sha256:36f1b41be74969bbbf4c9f3e98ebb16714e07fee5bfaf1fd1161b4b3bbcdb556
+      lastState: {}
+      name: velero
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2025-11-20T02:54:19Z"
+    hostIP: 10.224.0.15
+    hostIPs:
+    - ip: 10.224.0.15
+    initContainerStatuses:
+    - containerID: containerd://ae9eb87ac830400de49c432646eaacc3a055be56b69fb1a99b1821a0df2a34fc
+      image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-microsoft-azure:0.0.03174.602
+      imageID: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-microsoft-azure@sha256:8ceff6350deceac4831149c35c4d4f1c856f2dc98fecc673097260e3138b188c
+      lastState: {}
+      name: velero-plugin-for-microsoft-azure
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://ae9eb87ac830400de49c432646eaacc3a055be56b69fb1a99b1821a0df2a34fc
+          exitCode: 0
+          finishedAt: "2025-11-20T02:54:08Z"
+          reason: Completed
+          startedAt: "2025-11-20T02:54:06Z"
+    - containerID: containerd://da17f1c5fdb394707046c51a09a03c3a330a3c9b7fc2ebbe8f495631c902d273
+      image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-csi:0.0.03174.602
+      imageID: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-csi@sha256:64d26fdbc4dc934b2c82a0ec1c4ae1f648acfb0214fb0a774780521b1f7204a6
+      lastState: {}
+      name: velero-plugin-for-csi
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://da17f1c5fdb394707046c51a09a03c3a330a3c9b7fc2ebbe8f495631c902d273
+          exitCode: 0
+          finishedAt: "2025-11-20T02:54:11Z"
+          reason: Completed
+          startedAt: "2025-11-20T02:54:10Z"
+    phase: Running
+    podIP: 10.244.1.33
+    podIPs:
+    - ip: 10.244.1.33
+    qosClass: Burstable
+    startTime: "2025-11-20T02:54:05Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    labels:
+      app: geneva-service
+      app.kubernetes.io/managed-by: Helm
+    name: dataprotection-microsoft-geneva-service
+    namespace: dataprotection-microsoft
+    resourceVersion: "447225441"
+    uid: 023db3e6-5337-4b05-9668-bedd0bf38512
+  spec:
+    clusterIP: 10.0.25.48
+    clusterIPs:
+    - 10.0.25.48
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: mdm-udp
+      port: 8125
+      protocol: UDP
+      targetPort: 8125
+    - name: mds-fluentd-tcp
+      port: 8130
+      protocol: TCP
+      targetPort: 8130
+    selector:
+      app.kubernetes.io/component: geneva-service
+      app.kubernetes.io/name: azure-arc-k8s
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+    name: dataprotection-microsoft-kubernetes-agent
+    namespace: dataprotection-microsoft
+    resourceVersion: "457824774"
+    uid: b5ba18a4-d16d-4d4a-8d6a-a32090c33f6b
+  spec:
+    clusterIP: 10.0.189.159
+    clusterIPs:
+    - 10.0.189.159
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http-monitoring
+      port: 8085
+      protocol: TCP
+      targetPort: http-monitoring
+    selector:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      name: velero
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      control-plane: dataprotection-microsoft-controller
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+    name: dataprotection-microsoft-controller
+    namespace: dataprotection-microsoft
+    resourceVersion: "485388815"
+    uid: 1d77d5b1-4fee-48a0-a76f-265320c1bb08
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        control-plane: dataprotection-microsoft-controller
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/default-container: manager
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: azure-aks-backup
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+          control-plane: dataprotection-microsoft-controller
+          helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+          imagePullPolicy: IfNotPresent
+          name: fluent-bit
+          resources:
+            limits:
+              cpu: 30m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /fluent-bit/etc
+            name: fluentbit-config
+          - mountPath: /var/log/containers
+            name: var-log-containers
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: var-log-pods
+            readOnly: true
+          - mountPath: /var/lib/docker/containers
+            name: var-lib-containers
+            readOnly: true
+        - args:
+          - --leader-elect
+          command:
+          - /manager
+          env:
+          - name: WATCH_NAMESPACE
+            value: dataprotection-microsoft
+          - name: CLUSTER_ARM_ID
+            value: /subscriptions/77b72616-d4b8-47cb-9fb6-ff05f5230d4a/resourceGroups/veridocid/providers/Microsoft.ContainerService/managedclusters/cluster-id-verification
+          image: mcr.microsoft.com/azurebackup/k8s/controller:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: manager
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-controller-sa
+        serviceAccountName: dataprotection-microsoft-controller-sa
+        terminationGracePeriodSeconds: 10
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: dataprotection-microsoft-controller-fluentbit-config
+          name: fluentbit-config
+        - hostPath:
+            path: /var/log/containers
+            type: ""
+          name: var-log-containers
+        - hostPath:
+            path: /var/log/pods
+            type: ""
+          name: var-log-pods
+        - hostPath:
+            path: /var/lib/docker/containers
+            type: ""
+          name: var-lib-containers
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-09-18T16:23:40Z"
+      lastUpdateTime: "2025-10-06T03:17:13Z"
+      message: ReplicaSet "dataprotection-microsoft-controller-798fb4f88" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-11-20T02:54:07Z"
+      lastUpdateTime: "2025-11-20T02:54:07Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "4"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    generation: 4
+    labels:
+      app.kubernetes.io/component: geneva-service
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: azure-arc-k8s
+    name: dataprotection-microsoft-geneva-service
+    namespace: dataprotection-microsoft
+    resourceVersion: "485388488"
+    uid: 2287b96a-d32d-4a12-a695-a17786d56332
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: geneva-service
+        app.kubernetes.io/name: azure-arc-k8s
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: geneva-service
+          app.kubernetes.io/name: azure-arc-k8s
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - command:
+          - /start_mdsd.sh
+          env:
+          - name: TENANT
+            value: westus2
+          - name: ROLE
+            value: K8sBCDRExtDiag
+          - name: ROLEINSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_TENANT
+            value: westus2
+          - name: MONITORING_ROLE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_ROLE_INSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_GCS_ENVIRONMENT
+            value: DiagnosticsProd
+          - name: MONITORING_GCS_AUTH_ID_TYPE
+            value: AuthMSIToken
+          - name: MONITORING_GCS_ACCOUNT
+            value: K8sBCDRExtDiag
+          - name: MONITORING_GCS_REGION
+            value: westus2
+          - name: MONITORING_GCS_NAMESPACE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_CONFIG_VERSION
+            value: "2.0"
+          - name: MDSD_DEFAULT_LOG_DIR
+            value: /geneva/geneva_logs
+          - name: MDSD_LOG_DIR
+            value: /geneva/geneva_logs
+          - name: MDSD_CONFIG_DIR
+            value: /geneva/geneva_config
+          - name: FLUENTD_PORT
+            value: "8130"
+          - name: SKIP_IMDS_LOOKUP_FOR_LEGACY_AUTH
+            value: "true"
+          - name: ENABLE_GIG_BRIDGE_MODE
+            value: "true"
+          - name: LOCAL_BINDING
+            value: "0"
+          - name: ENABLE_PERSISTENT_EVENT
+            value: "true"
+          - name: MDSD_MSGPACK_SORT_COLUMNS
+            value: "1"
+          - name: DOCKER_LOGGING
+            value: "true"
+          - name: OTLP_DEBUG_VERBOSE
+            value: "1"
+          image: mcr.microsoft.com/geneva/distroless/mdsd:recommended@sha256:e9ea27e0063d0f450fe1f2fcba3aac239f045ff8418f9841744da9c5107d7818
+          imagePullPolicy: IfNotPresent
+          name: mdsd
+          resources:
+            limits:
+              cpu: 50m
+              memory: 600Mi
+            requests:
+              cpu: 20m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/mdsd
+            name: mdsd-run-vol
+          - mountPath: /geneva/geneva_config
+            name: mdsd-config
+          - mountPath: /geneva/geneva_logs
+            name: mdsd-logs
+          - mountPath: /var/opt/microsoft/linuxmonagent
+            name: mdsd-persistence-vol
+        - args:
+          - --secret-namespace=kube-system
+          - --secret-name=extensions-aad-msi-token
+          - --token-server-listening-port=8888
+          - --token-server-forwarding-port=8889
+          - --ignore-aud-trailing-slash=true
+          command:
+          - /addon-token-adapter
+          image: mcr.microsoft.com/aks/msi/addon-token-adapter:master.251015.2
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 9999
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: addon-token-adapter
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 50Mi
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
+              - NET_RAW
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-geneva-sa
+        serviceAccountName: dataprotection-microsoft-geneva-sa
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - emptyDir: {}
+          name: mdsd-run-vol
+        - emptyDir: {}
+          name: mdsd-config
+        - emptyDir: {}
+          name: mdsd-logs
+        - emptyDir: {}
+          name: mdsd-persistence-vol
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-09-18T16:23:40Z"
+      lastUpdateTime: "2025-10-31T13:29:54Z"
+      message: ReplicaSet "dataprotection-microsoft-geneva-service-6b59c7cf9b" has
+        successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-11-20T02:53:48Z"
+      lastUpdateTime: "2025-11-20T02:53:48Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 4
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      component: velero
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+    name: dataprotection-microsoft-kubernetes-agent
+    namespace: dataprotection-microsoft
+    resourceVersion: "485388970"
+    uid: f237c636-6716-4f79-bf39-9406a5bbe8f9
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: azure-aks-backup
+        app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+          prometheus.io/path: /metrics
+          prometheus.io/port: "8085"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: azure-aks-backup
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+          helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+          name: velero
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+          imagePullPolicy: IfNotPresent
+          name: fluent-bit
+          resources:
+            limits:
+              cpu: 30m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /fluent-bit/etc
+            name: fluentbit-config
+          - mountPath: /var/log/containers
+            name: var-log-containers
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: var-log-pods
+            readOnly: true
+          - mountPath: /var/lib/docker/containers
+            name: var-lib-containers
+            readOnly: true
+        - args:
+          - server
+          - --features=EnableCSI
+          - --log-level=debug
+          - --log-format=json
+          - --terminating-resource-timeout=1m0s
+          - --default-item-operation-timeout=10m0s
+          - --disable-informer-cache=true
+          command:
+          - /velero
+          env:
+          - name: VELERO_SCRATCH_DIR
+            value: /scratch
+          - name: VELERO_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: LD_LIBRARY_PATH
+            value: /plugins
+          - name: AZURE_CREDENTIALS_FILE
+            value: /credentials/cloud
+          image: mcr.microsoft.com/azurebackup/k8s/velero:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: velero
+          ports:
+          - containerPort: 8085
+            name: http-monitoring
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1750Mi
+            requests:
+              cpu: 500m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /plugins
+            name: plugins
+          - mountPath: /credentials
+            name: cloud-credentials
+          - mountPath: /scratch
+            name: scratch
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-microsoft-azure:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: velero-plugin-for-microsoft-azure
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        - image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-csi:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: velero-plugin-for-csi
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-kubernetes-agent-server
+        serviceAccountName: dataprotection-microsoft-kubernetes-agent-server
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: dataprotection-microsoft-kubernetes-agent-fluentbit-config
+          name: fluentbit-config
+        - hostPath:
+            path: /var/log/containers
+            type: ""
+          name: var-log-containers
+        - hostPath:
+            path: /var/log/pods
+            type: ""
+          name: var-log-pods
+        - hostPath:
+            path: /var/lib/docker/containers
+            type: ""
+          name: var-lib-containers
+        - name: cloud-credentials
+          secret:
+            defaultMode: 420
+            secretName: dataprotection-microsoft-kubernetes-agent-credentials
+        - emptyDir: {}
+          name: plugins
+        - emptyDir: {}
+          name: scratch
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-09-18T16:23:40Z"
+      lastUpdateTime: "2025-10-06T03:17:17Z"
+      message: ReplicaSet "dataprotection-microsoft-kubernetes-agent-646b8f498c" has
+        successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-11-20T02:54:19Z"
+      lastUpdateTime: "2025-11-20T02:54:19Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-10-06T03:17:06Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      control-plane: dataprotection-microsoft-controller
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+      pod-template-hash: 798fb4f88
+    name: dataprotection-microsoft-controller-798fb4f88
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-controller
+      uid: 1d77d5b1-4fee-48a0-a76f-265320c1bb08
+    resourceVersion: "485388814"
+    uid: 0b7bec84-16b0-4034-8712-784a4d400259
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        control-plane: dataprotection-microsoft-controller
+        pod-template-hash: 798fb4f88
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/default-container: manager
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: azure-aks-backup
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+          control-plane: dataprotection-microsoft-controller
+          helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+          pod-template-hash: 798fb4f88
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+          imagePullPolicy: IfNotPresent
+          name: fluent-bit
+          resources:
+            limits:
+              cpu: 30m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /fluent-bit/etc
+            name: fluentbit-config
+          - mountPath: /var/log/containers
+            name: var-log-containers
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: var-log-pods
+            readOnly: true
+          - mountPath: /var/lib/docker/containers
+            name: var-lib-containers
+            readOnly: true
+        - args:
+          - --leader-elect
+          command:
+          - /manager
+          env:
+          - name: WATCH_NAMESPACE
+            value: dataprotection-microsoft
+          - name: CLUSTER_ARM_ID
+            value: /subscriptions/77b72616-d4b8-47cb-9fb6-ff05f5230d4a/resourceGroups/veridocid/providers/Microsoft.ContainerService/managedclusters/cluster-id-verification
+          image: mcr.microsoft.com/azurebackup/k8s/controller:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: manager
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-controller-sa
+        serviceAccountName: dataprotection-microsoft-controller-sa
+        terminationGracePeriodSeconds: 10
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: dataprotection-microsoft-controller-fluentbit-config
+          name: fluentbit-config
+        - hostPath:
+            path: /var/log/containers
+            type: ""
+          name: var-log-containers
+        - hostPath:
+            path: /var/log/pods
+            type: ""
+          name: var-log-pods
+        - hostPath:
+            path: /var/lib/docker/containers
+            type: ""
+          name: var-lib-containers
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      control-plane: dataprotection-microsoft-controller
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3061-577
+      pod-template-hash: 7c5bc9785b
+    name: dataprotection-microsoft-controller-7c5bc9785b
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-controller
+      uid: 1d77d5b1-4fee-48a0-a76f-265320c1bb08
+    resourceVersion: "457824796"
+    uid: ef710dae-c9c2-40c5-bb23-5ddeb6317cfa
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        control-plane: dataprotection-microsoft-controller
+        pod-template-hash: 7c5bc9785b
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/default-container: manager
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: azure-aks-backup
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+          control-plane: dataprotection-microsoft-controller
+          helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3061-577
+          pod-template-hash: 7c5bc9785b
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+          imagePullPolicy: IfNotPresent
+          name: fluent-bit
+          resources:
+            limits:
+              cpu: 30m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /fluent-bit/etc
+            name: fluentbit-config
+          - mountPath: /var/log/containers
+            name: var-log-containers
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: var-log-pods
+            readOnly: true
+          - mountPath: /var/lib/docker/containers
+            name: var-lib-containers
+            readOnly: true
+        - args:
+          - --leader-elect
+          command:
+          - /manager
+          env:
+          - name: WATCH_NAMESPACE
+            value: dataprotection-microsoft
+          - name: CLUSTER_ARM_ID
+            value: /subscriptions/77b72616-d4b8-47cb-9fb6-ff05f5230d4a/resourceGroups/veridocid/providers/Microsoft.ContainerService/managedclusters/cluster-id-verification
+          image: mcr.microsoft.com/azurebackup/k8s/controller:0.0.03061.577
+          imagePullPolicy: IfNotPresent
+          name: manager
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-controller-sa
+        serviceAccountName: dataprotection-microsoft-controller-sa
+        terminationGracePeriodSeconds: 10
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: dataprotection-microsoft-controller-fluentbit-config
+          name: fluentbit-config
+        - hostPath:
+            path: /var/log/containers
+            type: ""
+          name: var-log-containers
+        - hostPath:
+            path: /var/log/pods
+            type: ""
+          name: var-log-pods
+        - hostPath:
+            path: /var/lib/docker/containers
+            type: ""
+          name: var-lib-containers
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "4"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-10-31T13:29:49Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/component: geneva-service
+      app.kubernetes.io/name: azure-arc-k8s
+      pod-template-hash: 6b59c7cf9b
+    name: dataprotection-microsoft-geneva-service-6b59c7cf9b
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-geneva-service
+      uid: 2287b96a-d32d-4a12-a695-a17786d56332
+    resourceVersion: "485388487"
+    uid: a452b0e4-3040-4282-93ab-7887d29f6135
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: geneva-service
+        app.kubernetes.io/name: azure-arc-k8s
+        pod-template-hash: 6b59c7cf9b
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: geneva-service
+          app.kubernetes.io/name: azure-arc-k8s
+          pod-template-hash: 6b59c7cf9b
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - command:
+          - /start_mdsd.sh
+          env:
+          - name: TENANT
+            value: westus2
+          - name: ROLE
+            value: K8sBCDRExtDiag
+          - name: ROLEINSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_TENANT
+            value: westus2
+          - name: MONITORING_ROLE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_ROLE_INSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_GCS_ENVIRONMENT
+            value: DiagnosticsProd
+          - name: MONITORING_GCS_AUTH_ID_TYPE
+            value: AuthMSIToken
+          - name: MONITORING_GCS_ACCOUNT
+            value: K8sBCDRExtDiag
+          - name: MONITORING_GCS_REGION
+            value: westus2
+          - name: MONITORING_GCS_NAMESPACE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_CONFIG_VERSION
+            value: "2.0"
+          - name: MDSD_DEFAULT_LOG_DIR
+            value: /geneva/geneva_logs
+          - name: MDSD_LOG_DIR
+            value: /geneva/geneva_logs
+          - name: MDSD_CONFIG_DIR
+            value: /geneva/geneva_config
+          - name: FLUENTD_PORT
+            value: "8130"
+          - name: SKIP_IMDS_LOOKUP_FOR_LEGACY_AUTH
+            value: "true"
+          - name: ENABLE_GIG_BRIDGE_MODE
+            value: "true"
+          - name: LOCAL_BINDING
+            value: "0"
+          - name: ENABLE_PERSISTENT_EVENT
+            value: "true"
+          - name: MDSD_MSGPACK_SORT_COLUMNS
+            value: "1"
+          - name: DOCKER_LOGGING
+            value: "true"
+          - name: OTLP_DEBUG_VERBOSE
+            value: "1"
+          image: mcr.microsoft.com/geneva/distroless/mdsd:recommended@sha256:e9ea27e0063d0f450fe1f2fcba3aac239f045ff8418f9841744da9c5107d7818
+          imagePullPolicy: IfNotPresent
+          name: mdsd
+          resources:
+            limits:
+              cpu: 50m
+              memory: 600Mi
+            requests:
+              cpu: 20m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/mdsd
+            name: mdsd-run-vol
+          - mountPath: /geneva/geneva_config
+            name: mdsd-config
+          - mountPath: /geneva/geneva_logs
+            name: mdsd-logs
+          - mountPath: /var/opt/microsoft/linuxmonagent
+            name: mdsd-persistence-vol
+        - args:
+          - --secret-namespace=kube-system
+          - --secret-name=extensions-aad-msi-token
+          - --token-server-listening-port=8888
+          - --token-server-forwarding-port=8889
+          - --ignore-aud-trailing-slash=true
+          command:
+          - /addon-token-adapter
+          image: mcr.microsoft.com/aks/msi/addon-token-adapter:master.251015.2
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 9999
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: addon-token-adapter
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 50Mi
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
+              - NET_RAW
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-geneva-sa
+        serviceAccountName: dataprotection-microsoft-geneva-sa
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - emptyDir: {}
+          name: mdsd-run-vol
+        - emptyDir: {}
+          name: mdsd-config
+        - emptyDir: {}
+          name: mdsd-logs
+        - emptyDir: {}
+          name: mdsd-persistence-vol
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/component: geneva-service
+      app.kubernetes.io/name: azure-arc-k8s
+      pod-template-hash: 6dc4b5f4cc
+    name: dataprotection-microsoft-geneva-service-6dc4b5f4cc
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-geneva-service
+      uid: 2287b96a-d32d-4a12-a695-a17786d56332
+    resourceVersion: "456036983"
+    uid: 1618bddf-a460-4556-bcf5-63117e9fdd09
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: geneva-service
+        app.kubernetes.io/name: azure-arc-k8s
+        pod-template-hash: 6dc4b5f4cc
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: geneva-service
+          app.kubernetes.io/name: azure-arc-k8s
+          pod-template-hash: 6dc4b5f4cc
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - command:
+          - /start_mdsd.sh
+          env:
+          - name: TENANT
+            value: westus2
+          - name: ROLE
+            value: K8sBCDRExtDiag
+          - name: ROLEINSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_TENANT
+            value: westus2
+          - name: MONITORING_ROLE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_ROLE_INSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_GCS_ENVIRONMENT
+            value: DiagnosticsProd
+          - name: MONITORING_GCS_AUTH_ID_TYPE
+            value: AuthMSIToken
+          - name: MONITORING_GCS_ACCOUNT
+            value: K8sBCDRExtDiag
+          - name: MONITORING_GCS_REGION
+            value: westus2
+          - name: MONITORING_GCS_NAMESPACE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_CONFIG_VERSION
+            value: "2.0"
+          - name: FLUENTD_PORT
+            value: "8130"
+          - name: SKIP_IMDS_LOOKUP_FOR_LEGACY_AUTH
+            value: "true"
+          - name: ENABLE_GIG_BRIDGE_MODE
+            value: "true"
+          - name: LOCAL_BINDING
+            value: "0"
+          - name: ENABLE_PERSISTENT_EVENT
+            value: "true"
+          - name: MDSD_MSGPACK_SORT_COLUMNS
+            value: "1"
+          - name: MDSD_CONFIG_DIR
+            value: /tmp
+          - name: DOCKER_LOGGING
+            value: "true"
+          - name: OTLP_DEBUG_VERBOSE
+            value: "1"
+          image: mcr.microsoft.com/k8se/distroless/genevamdsd:mariner_20250225.2
+          imagePullPolicy: IfNotPresent
+          name: mdsd
+          resources:
+            limits:
+              cpu: 50m
+              memory: 600Mi
+            requests:
+              cpu: 20m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /geneva/geneva_logs
+            name: var-log-vol
+          - mountPath: /var/run/mdsd
+            name: mdsd-run-vol
+          - mountPath: /var/opt/microsoft/linuxmonagent/events
+            name: mdsd-persistence-vol
+        - args:
+          - --secret-namespace=kube-system
+          - --secret-name=extensions-aad-msi-token
+          - --token-server-listening-port=8888
+          - --token-server-forwarding-port=8889
+          - --ignore-aud-trailing-slash=true
+          command:
+          - /addon-token-adapter
+          image: mcr.microsoft.com/aks/msi/addon-token-adapter:master.250604.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 9999
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: addon-token-adapter
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 50Mi
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
+              - NET_RAW
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-geneva-sa
+        serviceAccountName: dataprotection-microsoft-geneva-sa
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - emptyDir: {}
+          name: mdsd-run-vol
+        - hostPath:
+            path: /var/log
+            type: ""
+          name: var-log-vol
+        - hostPath:
+            path: /var/opt/microsoft/linuxmonagent/events
+            type: ""
+          name: mdsd-persistence-vol
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-10-03T04:39:31Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/component: geneva-service
+      app.kubernetes.io/name: azure-arc-k8s
+      pod-template-hash: 96fb6d9f4
+    name: dataprotection-microsoft-geneva-service-96fb6d9f4
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-geneva-service
+      uid: 2287b96a-d32d-4a12-a695-a17786d56332
+    resourceVersion: "457824791"
+    uid: ac051c0a-36da-4ec0-bc1e-9a65f9958fe5
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: geneva-service
+        app.kubernetes.io/name: azure-arc-k8s
+        pod-template-hash: 96fb6d9f4
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: geneva-service
+          app.kubernetes.io/name: azure-arc-k8s
+          pod-template-hash: 96fb6d9f4
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - command:
+          - /start_mdsd.sh
+          env:
+          - name: TENANT
+            value: westus2
+          - name: ROLE
+            value: K8sBCDRExtDiag
+          - name: ROLEINSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_TENANT
+            value: westus2
+          - name: MONITORING_ROLE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_ROLE_INSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_GCS_ENVIRONMENT
+            value: DiagnosticsProd
+          - name: MONITORING_GCS_AUTH_ID_TYPE
+            value: AuthMSIToken
+          - name: MONITORING_GCS_ACCOUNT
+            value: K8sBCDRExtDiag
+          - name: MONITORING_GCS_REGION
+            value: westus2
+          - name: MONITORING_GCS_NAMESPACE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_CONFIG_VERSION
+            value: "2.0"
+          - name: FLUENTD_PORT
+            value: "8130"
+          - name: SKIP_IMDS_LOOKUP_FOR_LEGACY_AUTH
+            value: "true"
+          - name: ENABLE_GIG_BRIDGE_MODE
+            value: "true"
+          - name: LOCAL_BINDING
+            value: "0"
+          - name: ENABLE_PERSISTENT_EVENT
+            value: "true"
+          - name: MDSD_MSGPACK_SORT_COLUMNS
+            value: "1"
+          - name: MDSD_CONFIG_DIR
+            value: /tmp
+          - name: DOCKER_LOGGING
+            value: "true"
+          - name: OTLP_DEBUG_VERBOSE
+            value: "1"
+          image: mcr.microsoft.com/k8se/distroless/genevamdsd:mariner_20250225.2
+          imagePullPolicy: IfNotPresent
+          name: mdsd
+          resources:
+            limits:
+              cpu: 50m
+              memory: 600Mi
+            requests:
+              cpu: 20m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /geneva/geneva_logs
+            name: var-log-vol
+          - mountPath: /var/run/mdsd
+            name: mdsd-run-vol
+          - mountPath: /var/opt/microsoft/linuxmonagent/events
+            name: mdsd-persistence-vol
+        - args:
+          - --secret-namespace=kube-system
+          - --secret-name=extensions-aad-msi-token
+          - --token-server-listening-port=8888
+          - --token-server-forwarding-port=8889
+          - --ignore-aud-trailing-slash=true
+          command:
+          - /addon-token-adapter
+          image: mcr.microsoft.com/aks/msi/addon-token-adapter:master.250902.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 9999
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: addon-token-adapter
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 50Mi
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
+              - NET_RAW
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-geneva-sa
+        serviceAccountName: dataprotection-microsoft-geneva-sa
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - emptyDir: {}
+          name: mdsd-run-vol
+        - hostPath:
+            path: /var/log
+            type: ""
+          name: var-log-vol
+        - hostPath:
+            path: /var/opt/microsoft/linuxmonagent/events
+            type: ""
+          name: mdsd-persistence-vol
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "3"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-10-06T03:17:05Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/component: geneva-service
+      app.kubernetes.io/name: azure-arc-k8s
+      pod-template-hash: f786cf98c
+    name: dataprotection-microsoft-geneva-service-f786cf98c
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-geneva-service
+      uid: 2287b96a-d32d-4a12-a695-a17786d56332
+    resourceVersion: "473245928"
+    uid: c342c5a0-fc7f-44ff-949a-8f1696ee54bf
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: geneva-service
+        app.kubernetes.io/name: azure-arc-k8s
+        pod-template-hash: f786cf98c
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: geneva-service
+          app.kubernetes.io/name: azure-arc-k8s
+          pod-template-hash: f786cf98c
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - command:
+          - /start_mdsd.sh
+          env:
+          - name: TENANT
+            value: westus2
+          - name: ROLE
+            value: K8sBCDRExtDiag
+          - name: ROLEINSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_TENANT
+            value: westus2
+          - name: MONITORING_ROLE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_ROLE_INSTANCE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: MONITORING_GCS_ENVIRONMENT
+            value: DiagnosticsProd
+          - name: MONITORING_GCS_AUTH_ID_TYPE
+            value: AuthMSIToken
+          - name: MONITORING_GCS_ACCOUNT
+            value: K8sBCDRExtDiag
+          - name: MONITORING_GCS_REGION
+            value: westus2
+          - name: MONITORING_GCS_NAMESPACE
+            value: K8sBCDRExtDiag
+          - name: MONITORING_CONFIG_VERSION
+            value: "2.0"
+          - name: MDSD_DEFAULT_LOG_DIR
+            value: /geneva/geneva_logs
+          - name: MDSD_LOG_DIR
+            value: /geneva/geneva_logs
+          - name: MDSD_CONFIG_DIR
+            value: /geneva/geneva_config
+          - name: FLUENTD_PORT
+            value: "8130"
+          - name: SKIP_IMDS_LOOKUP_FOR_LEGACY_AUTH
+            value: "true"
+          - name: ENABLE_GIG_BRIDGE_MODE
+            value: "true"
+          - name: LOCAL_BINDING
+            value: "0"
+          - name: ENABLE_PERSISTENT_EVENT
+            value: "true"
+          - name: MDSD_MSGPACK_SORT_COLUMNS
+            value: "1"
+          - name: DOCKER_LOGGING
+            value: "true"
+          - name: OTLP_DEBUG_VERBOSE
+            value: "1"
+          image: mcr.microsoft.com/geneva/distroless/mdsd:recommended@sha256:e9ea27e0063d0f450fe1f2fcba3aac239f045ff8418f9841744da9c5107d7818
+          imagePullPolicy: IfNotPresent
+          name: mdsd
+          resources:
+            limits:
+              cpu: 50m
+              memory: 600Mi
+            requests:
+              cpu: 20m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/mdsd
+            name: mdsd-run-vol
+          - mountPath: /geneva/geneva_config
+            name: mdsd-config
+          - mountPath: /geneva/geneva_logs
+            name: mdsd-logs
+          - mountPath: /var/opt/microsoft/linuxmonagent
+            name: mdsd-persistence-vol
+        - args:
+          - --secret-namespace=kube-system
+          - --secret-name=extensions-aad-msi-token
+          - --token-server-listening-port=8888
+          - --token-server-forwarding-port=8889
+          - --ignore-aud-trailing-slash=true
+          command:
+          - /addon-token-adapter
+          image: mcr.microsoft.com/aks/msi/addon-token-adapter:master.250902.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 9999
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: addon-token-adapter
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 50Mi
+          securityContext:
+            capabilities:
+              add:
+              - NET_ADMIN
+              - NET_RAW
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-geneva-sa
+        serviceAccountName: dataprotection-microsoft-geneva-sa
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - emptyDir: {}
+          name: mdsd-run-vol
+        - emptyDir: {}
+          name: mdsd-config
+        - emptyDir: {}
+          name: mdsd-logs
+        - emptyDir: {}
+          name: mdsd-persistence-vol
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-10-06T03:17:05Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+      name: velero
+      pod-template-hash: 646b8f498c
+    name: dataprotection-microsoft-kubernetes-agent-646b8f498c
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-kubernetes-agent
+      uid: f237c636-6716-4f79-bf39-9406a5bbe8f9
+    resourceVersion: "485388967"
+    uid: f1b3632b-50b0-47a2-b0a1-651243a128bf
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: azure-aks-backup
+        app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+        pod-template-hash: 646b8f498c
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+          prometheus.io/path: /metrics
+          prometheus.io/port: "8085"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: azure-aks-backup
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+          helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3174-602
+          name: velero
+          pod-template-hash: 646b8f498c
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+          imagePullPolicy: IfNotPresent
+          name: fluent-bit
+          resources:
+            limits:
+              cpu: 30m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /fluent-bit/etc
+            name: fluentbit-config
+          - mountPath: /var/log/containers
+            name: var-log-containers
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: var-log-pods
+            readOnly: true
+          - mountPath: /var/lib/docker/containers
+            name: var-lib-containers
+            readOnly: true
+        - args:
+          - server
+          - --features=EnableCSI
+          - --log-level=debug
+          - --log-format=json
+          - --terminating-resource-timeout=1m0s
+          - --default-item-operation-timeout=10m0s
+          - --disable-informer-cache=true
+          command:
+          - /velero
+          env:
+          - name: VELERO_SCRATCH_DIR
+            value: /scratch
+          - name: VELERO_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: LD_LIBRARY_PATH
+            value: /plugins
+          - name: AZURE_CREDENTIALS_FILE
+            value: /credentials/cloud
+          image: mcr.microsoft.com/azurebackup/k8s/velero:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: velero
+          ports:
+          - containerPort: 8085
+            name: http-monitoring
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1750Mi
+            requests:
+              cpu: 500m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /plugins
+            name: plugins
+          - mountPath: /credentials
+            name: cloud-credentials
+          - mountPath: /scratch
+            name: scratch
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-microsoft-azure:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: velero-plugin-for-microsoft-azure
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        - image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-csi:0.0.03174.602
+          imagePullPolicy: IfNotPresent
+          name: velero-plugin-for-csi
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-kubernetes-agent-server
+        serviceAccountName: dataprotection-microsoft-kubernetes-agent-server
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: dataprotection-microsoft-kubernetes-agent-fluentbit-config
+          name: fluentbit-config
+        - hostPath:
+            path: /var/log/containers
+            type: ""
+          name: var-log-containers
+        - hostPath:
+            path: /var/log/pods
+            type: ""
+          name: var-log-pods
+        - hostPath:
+            path: /var/lib/docker/containers
+            type: ""
+          name: var-lib-containers
+        - name: cloud-credentials
+          secret:
+            defaultMode: 420
+            secretName: dataprotection-microsoft-kubernetes-agent-credentials
+        - emptyDir: {}
+          name: plugins
+        - emptyDir: {}
+          name: scratch
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: azure-aks-backup
+      meta.helm.sh/release-namespace: dataprotection-microsoft
+    creationTimestamp: "2025-09-18T16:23:40Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/instance: azure-aks-backup
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+      helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3061-577
+      name: velero
+      pod-template-hash: 65cf4ff764
+    name: dataprotection-microsoft-kubernetes-agent-65cf4ff764
+    namespace: dataprotection-microsoft
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: dataprotection-microsoft-kubernetes-agent
+      uid: f237c636-6716-4f79-bf39-9406a5bbe8f9
+    resourceVersion: "457824804"
+    uid: 925c9d08-771d-441f-ad59-873c554cebc1
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: azure-aks-backup
+        app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+        pod-template-hash: 65cf4ff764
+    template:
+      metadata:
+        annotations:
+          kubernetes.azure.com/set-kube-service-host-fqdn: "true"
+          prometheus.io/path: /metrics
+          prometheus.io/port: "8085"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: azure-aks-backup
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: dataprotection-microsoft-kubernetes
+          helm.sh/chart: dataprotection-microsoft-kubernetes-0.0.3061-577
+          name: velero
+          pod-template-hash: 65cf4ff764
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: dataprotection-microsoft
+                  operator: In
+                  values:
+                  - allow
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.azure.com/cluster
+                  operator: Exists
+                - key: type
+                  operator: NotIn
+                  values:
+                  - virtual-kubelet
+                - key: kubernetes.io/os
+                  operator: In
+                  values:
+                  - linux
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+        containers:
+        - env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: mcr.microsoft.com/oss/fluent/fluent-bit:3.1.4-8
+          imagePullPolicy: IfNotPresent
+          name: fluent-bit
+          resources:
+            limits:
+              cpu: 30m
+              memory: 128Mi
+            requests:
+              cpu: 20m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /fluent-bit/etc
+            name: fluentbit-config
+          - mountPath: /var/log/containers
+            name: var-log-containers
+            readOnly: true
+          - mountPath: /var/log/pods
+            name: var-log-pods
+            readOnly: true
+          - mountPath: /var/lib/docker/containers
+            name: var-lib-containers
+            readOnly: true
+        - args:
+          - server
+          - --features=EnableCSI
+          - --log-level=debug
+          - --log-format=json
+          - --terminating-resource-timeout=1m0s
+          - --default-item-operation-timeout=10m0s
+          - --disable-informer-cache=true
+          command:
+          - /velero
+          env:
+          - name: VELERO_SCRATCH_DIR
+            value: /scratch
+          - name: VELERO_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: LD_LIBRARY_PATH
+            value: /plugins
+          - name: AZURE_CREDENTIALS_FILE
+            value: /credentials/cloud
+          image: mcr.microsoft.com/azurebackup/k8s/velero:0.0.03061.577
+          imagePullPolicy: IfNotPresent
+          name: velero
+          ports:
+          - containerPort: 8085
+            name: http-monitoring
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1500Mi
+            requests:
+              cpu: 500m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /plugins
+            name: plugins
+          - mountPath: /credentials
+            name: cloud-credentials
+          - mountPath: /scratch
+            name: scratch
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-microsoft-azure:0.0.03061.577
+          imagePullPolicy: IfNotPresent
+          name: velero-plugin-for-microsoft-azure
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        - image: mcr.microsoft.com/azurebackup/k8s/velero-plugin-for-csi:0.0.03061.577
+          imagePullPolicy: IfNotPresent
+          name: velero-plugin-for-csi
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /target
+            name: plugins
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: dataprotection-microsoft-kubernetes-agent-server
+        serviceAccountName: dataprotection-microsoft-kubernetes-agent-server
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: dataprotection-microsoft-kubernetes-agent-fluentbit-config
+          name: fluentbit-config
+        - hostPath:
+            path: /var/log/containers
+            type: ""
+          name: var-log-containers
+        - hostPath:
+            path: /var/log/pods
+            type: ""
+          name: var-log-pods
+        - hostPath:
+            path: /var/lib/docker/containers
+            type: ""
+          name: var-lib-containers
+        - name: cloud-credentials
+          secret:
+            defaultMode: 420
+            secretName: dataprotection-microsoft-kubernetes-agent-credentials
+        - emptyDir: {}
+          name: plugins
+        - emptyDir: {}
+          name: scratch
+  status:
+    observedGeneration: 2
+    replicas: 0
+kind: List
+metadata:
+  resourceVersion: ""
